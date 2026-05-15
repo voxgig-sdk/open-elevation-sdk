@@ -1,0 +1,94 @@
+# Entity: lookup
+
+main: kit: entity: lookup: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "elevation"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "latitude"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "location"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "longitude"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "result"
+      req: false
+      type: "`$ARRAY`"
+    }
+  ]
+
+  name: "lookup"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/api/v1/lookup"
+          parts: [
+            "api"
+            "v1"
+            "lookup"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: "10,10|20,20|41.161758,-8.583933"
+                kind: "query"
+                name: "location"
+                orig: "location"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/api/v1/lookup"
+          parts: [
+            "api"
+            "v1"
+            "lookup"
+          ]
+          select: {
+            exist: [
+              "location"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

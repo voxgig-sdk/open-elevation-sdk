@@ -1,0 +1,38 @@
+{
+  "existing": {
+    "lookup": {
+      "LOOKUP00": {
+        "elevation": 50,
+        "latitude": 51,
+        "location": [],
+        "longitude": 53,
+        "result": []
+      },
+      "LOOKUP01": {
+        "elevation": 100,
+        "latitude": 101,
+        "location": [],
+        "longitude": 103,
+        "result": []
+      },
+      "LOOKUP02": {
+        "elevation": 150,
+        "latitude": 151,
+        "location": [],
+        "longitude": 153,
+        "result": []
+      }
+    }
+  },
+  "new": {
+    "lookup": {
+      "lookup_ref01": {
+        "elevation": 200,
+        "latitude": 201,
+        "location": [],
+        "longitude": 203,
+        "result": []
+      }
+    }
+  }
+}

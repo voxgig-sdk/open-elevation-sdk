@@ -1,0 +1,28 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        email: "contact@open-elevation.com"
+      }
+      description: "Open-Elevation is a free and open-source elevation API that provides elevation data for geographical points. Users can easily access elevation information over a broad dataset, offering a reliable alternative to commercial elevation services."
+      license: {
+        name: "GPLv2"
+        url: "https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"
+      }
+      servers: [
+        {
+          description: "Public API Server"
+          url: "https://api.open-elevation.com"
+        }
+      ]
+      termsOfService: "https://www.open-elevation.com/"
+      title: "Open-Elevation API"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

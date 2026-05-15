@@ -1,0 +1,15 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 1
+  metrics: count: path: 1
+  metrics: count: method: 2
+
+  entity: lookup: {
+    path: "/api/v1/lookup": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+  }
+
+}

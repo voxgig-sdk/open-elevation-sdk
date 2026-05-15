@@ -1,0 +1,304 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Open-Elevation API",
+    "description": "Open-Elevation is a free and open-source elevation API that provides elevation data for geographical points. Users can easily access elevation information over a broad dataset, offering a reliable alternative to commercial elevation services.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "contact@open-elevation.com"
+    },
+    "license": {
+      "name": "GPLv2",
+      "url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"
+    },
+    "termsOfService": "https://www.open-elevation.com/"
+  },
+  "servers": [
+    {
+      "url": "https://api.open-elevation.com",
+      "description": "Public API Server"
+    }
+  ],
+  "paths": {
+    "/api/v1/lookup": {
+      "get": {
+        "summary": "Get elevation for geographical points",
+        "description": "Retrieve elevation data for one or more geographical coordinates using GET request.",
+        "operationId": "getElevation",
+        "tags": [
+          "Elevation"
+        ],
+        "parameters": [
+          {
+            "name": "locations",
+            "in": "query",
+            "description": "Pipe-separated list of latitude,longitude pairs (e.g., 10,10|20,20|41.161758,-8.583933)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "10,10|20,20|41.161758,-8.583933"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with elevation data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ElevationResponse"
+                },
+                "example": {
+                  "results": [
+                    {
+                      "latitude": 10,
+                      "longitude": 10,
+                      "elevation": 515
+                    },
+                    {
+                      "latitude": 20,
+                      "longitude": 20,
+                      "elevation": 590
+                    },
+                    {
+                      "latitude": 41.161758,
+                      "longitude": -8.583933,
+                      "elevation": 117
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Get elevation for geographical points",
+        "description": "Retrieve elevation data for one or more geographical coordinates using POST request with JSON body.",
+        "operationId": "postElevation",
+        "tags": [
+          "Elevation"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ElevationRequest"
+              },
+              "example": {
+                "locations": [
+                  {
+                    "latitude": 10,
+                    "longitude": 10
+                  },
+                  {
+                    "latitude": 20,
+                    "longitude": 20
+                  },
+                  {
+                    "latitude": 41.161758,
+                    "longitude": -8.583933
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with elevation data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ElevationResponse"
+                },
+                "example": {
+                  "results": [
+                    {
+                      "latitude": 10,
+                      "longitude": 10,
+                      "elevation": 515
+                    },
+                    {
+                      "latitude": 20,
+                      "longitude": 20,
+                      "elevation": 590
+                    },
+                    {
+                      "latitude": 41.161758,
+                      "longitude": -8.583933,
+                      "elevation": 117
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid JSON or parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ElevationRequest": {
+        "type": "object",
+        "required": [
+          "locations"
+        ],
+        "properties": {
+          "locations": {
+            "type": "array",
+            "description": "Array of location objects with latitude and longitude",
+            "items": {
+              "$ref": "#/components/schemas/Location"
+            },
+            "minItems": 1
+          }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "required": [
+          "latitude",
+          "longitude"
+        ],
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Latitude in decimal degrees",
+            "minimum": -90,
+            "maximum": 90
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Longitude in decimal degrees",
+            "minimum": -180,
+            "maximum": 180
+          }
+        }
+      },
+      "ElevationResponse": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "description": "Array of elevation results for the requested locations",
+            "items": {
+              "$ref": "#/components/schemas/ElevationResult"
+            }
+          }
+        }
+      },
+      "ElevationResult": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Latitude of the location"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Longitude of the location"
+          },
+          "elevation": {
+            "type": "number",
+            "format": "double",
+            "description": "Elevation in meters above sea level"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message describing what went wrong"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "API key required for paid plans (Basic, Professional, Enterprise). Free tier does not require authentication but is limited to 1,000 requests/month."
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Elevation",
+      "description": "Endpoints for retrieving elevation data for geographical coordinates"
+    }
+  ],
+  "externalDocs": {
+    "description": "Open-Elevation Documentation",
+    "url": "https://www.open-elevation.com/"
+  }
+}
