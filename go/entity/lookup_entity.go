@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/open-elevation-sdk/core"
+	"github.com/voxgig-sdk/open-elevation-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/open-elevation-sdk/go/utility/struct"
 )
 
 type LookupEntity struct {

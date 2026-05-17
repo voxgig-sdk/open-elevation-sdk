@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/open-elevation-sdk/core"
+import "github.com/voxgig-sdk/open-elevation-sdk/go/core"
 
 func makeResponseUtil(ctx *core.Context) (*core.Response, error) {
 	if ctx.Out["response"] != nil {

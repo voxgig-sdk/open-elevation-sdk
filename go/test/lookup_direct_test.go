@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/open-elevation-sdk"
-	"github.com/voxgig-sdk/open-elevation-sdk/core"
+	sdk "github.com/voxgig-sdk/open-elevation-sdk/go"
+	"github.com/voxgig-sdk/open-elevation-sdk/go/core"
 )
 
 func TestLookupDirect(t *testing.T) {

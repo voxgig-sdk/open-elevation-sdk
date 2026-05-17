@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/voxgig-sdk/open-elevation-sdk/core"
+	"github.com/voxgig-sdk/open-elevation-sdk/go/core"
 )
 
 type LogFeature struct {

@@ -1,10 +1,10 @@
 package voxgigopenelevationsdk
 
 import (
-	"github.com/voxgig-sdk/open-elevation-sdk/core"
-	"github.com/voxgig-sdk/open-elevation-sdk/entity"
-	"github.com/voxgig-sdk/open-elevation-sdk/feature"
-	_ "github.com/voxgig-sdk/open-elevation-sdk/utility"
+	"github.com/voxgig-sdk/open-elevation-sdk/go/core"
+	"github.com/voxgig-sdk/open-elevation-sdk/go/entity"
+	"github.com/voxgig-sdk/open-elevation-sdk/go/feature"
+	_ "github.com/voxgig-sdk/open-elevation-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

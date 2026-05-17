@@ -3,7 +3,7 @@ package sdktest
 import (
 	"testing"
 
-	sdk "github.com/voxgig-sdk/open-elevation-sdk"
+	sdk "github.com/voxgig-sdk/open-elevation-sdk/go"
 )
 
 func TestCustomUtility(t *testing.T) {

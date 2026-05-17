@@ -6,21 +6,24 @@
         "latitude": 51,
         "location": [],
         "longitude": 53,
-        "result": []
+        "result": [],
+        "id": "LOOKUP00"
       },
       "LOOKUP01": {
         "elevation": 100,
         "latitude": 101,
         "location": [],
         "longitude": 103,
-        "result": []
+        "result": [],
+        "id": "LOOKUP01"
       },
       "LOOKUP02": {
         "elevation": 150,
         "latitude": 151,
         "location": [],
         "longitude": 153,
-        "result": []
+        "result": [],
+        "id": "LOOKUP02"
       }
     }
   },

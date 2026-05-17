@@ -1,9 +1,9 @@
 package utility
 
 import (
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/open-elevation-sdk/go/utility/struct"
 
-	"github.com/voxgig-sdk/open-elevation-sdk/core"
+	"github.com/voxgig-sdk/open-elevation-sdk/go/core"
 )
 
 func featureInitUtil(ctx *core.Context, f core.Feature) {
