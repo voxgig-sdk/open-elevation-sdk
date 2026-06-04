@@ -21,7 +21,17 @@
         ],
         "termsOfService": "https://www.open-elevation.com/",
         "title": "Open-Elevation API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "tagline": "Look up terrain elevation for any latitude/longitude using a free, open-source alternative to commercial elevation APIs",
+        "homepage": "https://www.open-elevation.com/",
+        "docs_url": "https://www.open-elevation.com/",
+        "license_short": "GPLv2 (open-source software); elevation data sourced from public datasets",
+        "license_md": "- The Open-Elevation server software is released under the GNU GPL v2.\n- The hosted service at `api.open-elevation.com` is offered free of charge with no authentication required.\n- The project is community-maintained; self-hosting via Docker or native installation is documented for production use.",
+        "about_md": "[Open-Elevation](https://www.open-elevation.com/) is a free, open-source elevation lookup service created by João Ricardo Lourenço as an alternative to commercial offerings such as Google's Elevation API. It returns terrain altitude (in metres) for any geographic coordinate.\n\nWhat you get from the API:\n\n- Single-point and bulk elevation lookups for arbitrary latitude/longitude pairs\n- Worldwide coverage drawn from public elevation datasets\n- A simple JSON response listing each requested location with its `elevation` value\n\nThe public endpoint is `https://api.open-elevation.com/api/v1/lookup`. Coordinates can be supplied as a `locations` query parameter (e.g. `?locations=41.161758,-8.583933`) for GET requests. No API key or authentication is required, and CORS is enabled for browser use.\n\nFor heavier or production workloads, the project provides Docker images and dataset scripts so you can run your own instance against the SRTM-derived elevation data.",
+        "entity_desc": {
+          "lookup": "Elevation lookup operations against the `/api/v1/lookup` endpoint, accepting one or more `latitude,longitude` pairs and returning the elevation in metres for each point."
+        },
+        "auth": false
       },
       "config": {
         "auth": {
@@ -29,7 +39,15 @@
         },
         "headers": {
           "content-type": "application/json"
-        }
+        },
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ]
       },
       "entity": {
         "lookup": {

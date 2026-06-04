@@ -82,14 +82,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'OPENELEVATION_TEST_LOOKUP_ENTID': {},
     'OPENELEVATION_TEST_LIVE': 'FALSE',
-    'OPENELEVATION_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.OPENELEVATION_TEST_LIVE
 
   if (live) {
     const client = new OpenElevationSDK({
-      apikey: env.OPENELEVATION_APIKEY,
     })
 
     let idmap: any = env['OPENELEVATION_TEST_LOOKUP_ENTID']

@@ -63,14 +63,12 @@ function lookup_direct_setup(mockres)
   local env = runner.env_override({
     ["OPENELEVATION_TEST_LOOKUP_ENTID"] = {},
     ["OPENELEVATION_TEST_LIVE"] = "FALSE",
-    ["OPENELEVATION_APIKEY"] = "NONE",
   })
 
   local live = env["OPENELEVATION_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["OPENELEVATION_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

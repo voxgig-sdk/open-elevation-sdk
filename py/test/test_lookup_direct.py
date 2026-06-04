@@ -61,14 +61,12 @@ def _lookup_direct_setup(mockres):
     env = runner.env_override({
         "OPENELEVATION_TEST_LOOKUP_ENTID": {},
         "OPENELEVATION_TEST_LIVE": "FALSE",
-        "OPENELEVATION_APIKEY": "NONE",
     })
 
     live = env.get("OPENELEVATION_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("OPENELEVATION_APIKEY"),
         }
         client = OpenElevationSDK(merged_opts)
         return {

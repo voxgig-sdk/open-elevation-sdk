@@ -98,7 +98,6 @@ function lookup_basic_setup(extra)
     ["OPENELEVATION_TEST_LOOKUP_ENTID"] = idmap,
     ["OPENELEVATION_TEST_LIVE"] = "FALSE",
     ["OPENELEVATION_TEST_EXPLAIN"] = "FALSE",
-    ["OPENELEVATION_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -110,7 +109,6 @@ function lookup_basic_setup(extra)
   if env["OPENELEVATION_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
-        apikey = env["OPENELEVATION_APIKEY"],
       },
       extra or {},
     })

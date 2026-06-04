@@ -15,9 +15,6 @@ module OpenElevationConfig
       },
       "options" => {
         "base" => "https://api.open-elevation.com",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },
