@@ -20,6 +20,9 @@ class OpenElevationConfig
             ],
             "options" => [
                 "base" => "https://api.open-elevation.com",
+                "auth" => [
+                    "prefix" => "Bearer",
+                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -31,47 +34,50 @@ class OpenElevationConfig
         'lookup' => [
           'fields' => [
             [
+              'active' => true,
               'name' => 'elevation',
               'req' => false,
               'type' => '`$NUMBER`',
-              'active' => true,
               'index$' => 0,
             ],
             [
+              'active' => true,
               'name' => 'latitude',
               'req' => false,
               'type' => '`$NUMBER`',
-              'active' => true,
               'index$' => 1,
             ],
             [
+              'active' => true,
               'name' => 'location',
               'req' => true,
               'type' => '`$ARRAY`',
-              'active' => true,
               'index$' => 2,
             ],
             [
+              'active' => true,
               'name' => 'longitude',
               'req' => false,
               'type' => '`$NUMBER`',
-              'active' => true,
               'index$' => 3,
             ],
             [
+              'active' => true,
               'name' => 'result',
               'req' => false,
               'type' => '`$ARRAY`',
-              'active' => true,
               'index$' => 4,
             ],
           ],
           'name' => 'lookup',
           'op' => [
             'create' => [
+              'input' => 'data',
               'name' => 'create',
               'points' => [
                 [
+                  'active' => true,
+                  'args' => [],
                   'method' => 'POST',
                   'orig' => '/api/v1/lookup',
                   'parts' => [
@@ -79,33 +85,32 @@ class OpenElevationConfig
                     'v1',
                     'lookup',
                   ],
+                  'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
-                  'args' => [],
-                  'select' => [],
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'create',
             ],
             'list' => [
+              'input' => 'data',
               'name' => 'list',
               'points' => [
                 [
+                  'active' => true,
                   'args' => [
                     'query' => [
                       [
+                        'active' => true,
                         'example' => '10,10|20,20|41.161758,-8.583933',
                         'kind' => 'query',
                         'name' => 'location',
                         'orig' => 'location',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'active' => true,
                       ],
                     ],
                   ],
@@ -125,11 +130,9 @@ class OpenElevationConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'list',
             ],
           ],

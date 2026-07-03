@@ -127,6 +127,7 @@ func lookupBasicSetup(extra map[string]any) *entityTestSetup {
 		"OPENELEVATION_TEST_LOOKUP_ENTID": idmap,
 		"OPENELEVATION_TEST_LIVE":      "FALSE",
 		"OPENELEVATION_TEST_EXPLAIN":   "FALSE",
+		"OPENELEVATION_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["OPENELEVATION_TEST_LOOKUP_ENTID"])
@@ -137,6 +138,7 @@ func lookupBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["OPENELEVATION_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["OPENELEVATION_APIKEY"],
 			},
 			extra,
 		})

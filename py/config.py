@@ -15,6 +15,9 @@ def make_config():
         },
         "options": {
             "base": "https://api.open-elevation.com",
+            "auth": {
+                "prefix": "Bearer",
+            },
             "headers": {
         "content-type": "application/json",
       },
@@ -26,47 +29,50 @@ def make_config():
       "lookup": {
         "fields": [
           {
+            "active": True,
             "name": "elevation",
             "req": False,
             "type": "`$NUMBER`",
-            "active": True,
             "index$": 0,
           },
           {
+            "active": True,
             "name": "latitude",
             "req": False,
             "type": "`$NUMBER`",
-            "active": True,
             "index$": 1,
           },
           {
+            "active": True,
             "name": "location",
             "req": True,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 2,
           },
           {
+            "active": True,
             "name": "longitude",
             "req": False,
             "type": "`$NUMBER`",
-            "active": True,
             "index$": 3,
           },
           {
+            "active": True,
             "name": "result",
             "req": False,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 4,
           },
         ],
         "name": "lookup",
         "op": {
           "create": {
+            "input": "data",
             "name": "create",
             "points": [
               {
+                "active": True,
+                "args": {},
                 "method": "POST",
                 "orig": "/api/v1/lookup",
                 "parts": [
@@ -74,33 +80,32 @@ def make_config():
                   "v1",
                   "lookup",
                 ],
+                "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
-                "args": {},
-                "select": {},
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "create",
           },
           "list": {
+            "input": "data",
             "name": "list",
             "points": [
               {
+                "active": True,
                 "args": {
                   "query": [
                     {
+                      "active": True,
                       "example": "10,10|20,20|41.161758,-8.583933",
                       "kind": "query",
                       "name": "location",
                       "orig": "location",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -120,11 +125,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "list",
           },
         },

@@ -93,12 +93,14 @@ func lookupDirectSetup(mockres any) *lookupDirectSetupResult {
 	env := envOverride(map[string]any{
 		"OPENELEVATION_TEST_LOOKUP_ENTID": map[string]any{},
 		"OPENELEVATION_TEST_LIVE":    "FALSE",
+		"OPENELEVATION_APIKEY":       "NONE",
 	})
 
 	live := env["OPENELEVATION_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["OPENELEVATION_APIKEY"],
 		}
 		client := sdk.NewOpenElevationSDK(mergedOpts)
 

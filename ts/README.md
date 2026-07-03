@@ -1,6 +1,11 @@
 # OpenElevation TypeScript SDK
 
-The TypeScript SDK for the OpenElevation API. Provides a type-safe, entity-oriented interface with full async/await support.
+
+
+The TypeScript SDK for the OpenElevation API — a type-safe, entity-oriented client with full async/await support.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -17,7 +22,9 @@ loading a specific record.
 ```ts
 import { OpenElevationSDK } from 'open-elevation'
 
-const client = new OpenElevationSDK({})
+const client = new OpenElevationSDK({
+  apikey: process.env.OPEN-ELEVATION_APIKEY,
+})
 ```
 
 ### 2. List lookups
@@ -92,7 +99,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new OpenElevationSDK()
+const client = new OpenElevationSDK({ apikey: '...' })
 const testClient = client.tester()
 ```
 
@@ -128,6 +135,7 @@ const logger = {
 }
 
 const client = new OpenElevationSDK({
+  apikey: '...',
   extend: [logger],
 })
 ```
@@ -138,6 +146,7 @@ Create a `.env.local` file at the project root:
 
 ```
 OPEN-ELEVATION_TEST_LIVE=TRUE
+OPEN-ELEVATION_APIKEY=<your-key>
 ```
 
 Then run:
@@ -155,6 +164,7 @@ cd ts && npm test
 
 ```ts
 new OpenElevationSDK(options?: {
+  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -165,6 +175,7 @@ new OpenElevationSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

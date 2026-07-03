@@ -121,6 +121,7 @@ function basicSetup(extra?: any) {
     'OPEN_ELEVATION_TEST_LOOKUP_ENTID': idmap,
     'OPEN_ELEVATION_TEST_LIVE': 'FALSE',
     'OPEN_ELEVATION_TEST_EXPLAIN': 'FALSE',
+    'OPEN_ELEVATION_APIKEY': 'NONE',
   })
 
   idmap = env['OPEN_ELEVATION_TEST_LOOKUP_ENTID']
@@ -130,6 +131,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new OpenElevationSDK(merge([
       {
+        apikey: env.OPEN_ELEVATION_APIKEY,
       },
       extra
     ]))

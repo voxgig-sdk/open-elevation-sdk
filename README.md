@@ -1,22 +1,8 @@
 # OpenElevation SDK
 
-Look up terrain elevation for any latitude/longitude using a free, open-source alternative to commercial elevation APIs
+Open-Elevation API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About Open-Elevation API
-
-[Open-Elevation](https://www.open-elevation.com/) is a free, open-source elevation lookup service created by João Ricardo Lourenço as an alternative to commercial offerings such as Google's Elevation API. It returns terrain altitude (in metres) for any geographic coordinate.
-
-What you get from the API:
-
-- Single-point and bulk elevation lookups for arbitrary latitude/longitude pairs
-- Worldwide coverage drawn from public elevation datasets
-- A simple JSON response listing each requested location with its `elevation` value
-
-The public endpoint is `https://api.open-elevation.com/api/v1/lookup`. Coordinates can be supplied as a `locations` query parameter (e.g. `?locations=41.161758,-8.583933`) for GET requests. No API key or authentication is required, and CORS is enabled for browser use.
-
-For heavier or production workloads, the project provides Docker images and dataset scripts so you can run your own instance against the SRTM-derived elevation data.
 
 ## Try it
 
@@ -50,29 +36,31 @@ gem install open-elevation-sdk
 luarocks install open-elevation-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { OpenElevationSDK } from 'open-elevation'
 
-const client = new OpenElevationSDK({})
+const client = new OpenElevationSDK({
+  apikey: process.env.OPEN-ELEVATION_APIKEY,
+})
 
 // List all lookups
 const lookups = await client.Lookup().list()
+console.log(lookups.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -102,7 +90,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Lookup** | Elevation lookup operations against the `/api/v1/lookup` endpoint, accepting one or more `latitude,longitude` pairs and returning the elevation in metres for each point. | `/api/v1/lookup` |
+| **Lookup** |  | `/api/v1/lookup` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -112,12 +100,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from openelevation_sdk import OpenElevationSDK
 
-client = OpenElevationSDK({})
+client = OpenElevationSDK({
+    "apikey": os.environ.get("OPEN-ELEVATION_APIKEY"),
+})
 
 # List all lookups
-lookups, err = client.Lookup(None).list(None, None)
+lookups, err = client.Lookup().list()
+print(lookups)
 ```
 
 ### PHP
@@ -126,10 +118,13 @@ lookups, err = client.Lookup(None).list(None, None)
 <?php
 require_once 'openelevation_sdk.php';
 
-$client = new OpenElevationSDK([]);
+$client = new OpenElevationSDK([
+    "apikey" => getenv("OPEN-ELEVATION_APIKEY"),
+]);
 
 // List all lookups
-[$lookups, $err] = $client->Lookup(null)->list(null, null);
+[$lookups, $err] = $client->Lookup()->list();
+print_r($lookups);
 ```
 
 ### Golang
@@ -137,10 +132,13 @@ $client = new OpenElevationSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/open-elevation-sdk/go"
 
-client := sdk.NewOpenElevationSDK(map[string]any{})
+client := sdk.NewOpenElevationSDK(map[string]any{
+    "apikey": os.Getenv("OPEN-ELEVATION_APIKEY"),
+})
 
 // List all lookups
 lookups, err := client.Lookup(nil).List(nil, nil)
+fmt.Println(lookups)
 ```
 
 ### Ruby
@@ -148,10 +146,13 @@ lookups, err := client.Lookup(nil).List(nil, nil)
 ```ruby
 require_relative "OpenElevation_sdk"
 
-client = OpenElevationSDK.new({})
+client = OpenElevationSDK.new({
+  "apikey" => ENV["OPEN-ELEVATION_APIKEY"],
+})
 
 # List all lookups
-lookups, err = client.Lookup(nil).list(nil, nil)
+lookups, err = client.Lookup().list
+puts lookups
 ```
 
 ### Lua
@@ -159,10 +160,13 @@ lookups, err = client.Lookup(nil).list(nil, nil)
 ```lua
 local sdk = require("open-elevation_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("OPEN-ELEVATION_APIKEY"),
+})
 
 -- List all lookups
-local lookups, err = client:Lookup(nil):list(nil, nil)
+local lookups, err = client:Lookup():list()
+print(lookups)
 ```
 
 ## Unit testing in offline mode
@@ -181,25 +185,21 @@ const result = await client.Lookup().load({ id: 'test01' })
 ### Python
 
 ```python
-client = OpenElevationSDK.test(None, None)
-result, err = client.Lookup(None).load(
-    {"id": "test01"}, None
-)
+client = OpenElevationSDK.test()
+result, err = client.Lookup().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = OpenElevationSDK::test(null, null);
-[$result, $err] = $client->Lookup(null)->load(
-    ["id" => "test01"], null
-);
+$client = OpenElevationSDK::test();
+[$result, $err] = $client->Lookup()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Lookup(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -208,19 +208,15 @@ result, err := client.Lookup(nil).Load(
 ### Ruby
 
 ```ruby
-client = OpenElevationSDK.test(nil, nil)
-result, err = client.Lookup(nil).load(
-  { "id" => "test01" }, nil
-)
+client = OpenElevationSDK.test
+result, err = client.Lookup().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Lookup(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Lookup():load({ id = "test01" })
 ```
 
 ## How it works
@@ -324,14 +320,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the Open-Elevation API
-
-- Upstream: [https://www.open-elevation.com/](https://www.open-elevation.com/)
-
-- The Open-Elevation server software is released under the GNU GPL v2.
-- The hosted service at `api.open-elevation.com` is offered free of charge with no authentication required.
-- The project is community-maintained; self-hosting via Docker or native installation is documented for production use.
 
 ---
 
