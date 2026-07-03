@@ -10,7 +10,7 @@ The PHP SDK for the OpenElevation API — an entity-oriented client using PHP co
 
 ## Install
 ```bash
-composer require voxgig/open-elevation-sdk
+composer require voxgig-sdk/open-elevation
 ```
 
 

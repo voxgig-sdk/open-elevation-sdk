@@ -10,13 +10,13 @@ The Ruby SDK for the OpenElevation API — an entity-oriented client using idiom
 
 ## Install
 ```bash
-gem install open-elevation-sdk
+gem install voxgig-sdk-open-elevation
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "open-elevation-sdk"
+gem "voxgig-sdk-open-elevation"
 ```
 
 Then run:

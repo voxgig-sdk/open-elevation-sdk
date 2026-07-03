@@ -10,7 +10,7 @@ The Python SDK for the OpenElevation API — an entity-oriented client following
 
 ## Install
 ```bash
-pip install open-elevation-sdk
+pip install voxgig-sdk-open-elevation
 ```
 
 Or install from source:

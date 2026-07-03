@@ -10,7 +10,7 @@ The Lua SDK for the OpenElevation API — an entity-oriented client using Lua co
 
 ## Install
 ```bash
-luarocks install open-elevation-sdk
+luarocks install voxgig-sdk-open-elevation
 ```
 
 If the module is not yet published, add the source directory to

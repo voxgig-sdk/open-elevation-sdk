@@ -10,7 +10,7 @@ The TypeScript SDK for the OpenElevation API — a type-safe, entity-oriented cl
 
 ## Install
 ```bash
-npm install open-elevation
+npm install @voxgig-sdk/open-elevation
 ```
 ## Tutorial: your first API call
 
