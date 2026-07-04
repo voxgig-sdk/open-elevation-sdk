@@ -233,10 +233,10 @@ class OpenElevationSDK
 
     private $_lookup = null;
 
-    // Idiomatic facade: $client->lookup()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Lookup() (PHP method
-    // names are case-insensitive).
-    public function lookup($data = null)
+    // Canonical facade: $client->Lookup()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->lookup()
+    // resolves here too.
+    public function Lookup($data = null)
     {
         require_once __DIR__ . '/entity/lookup_entity.php';
         if ($data === null) {

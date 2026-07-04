@@ -28,9 +28,11 @@ const client = new OpenElevationSDK({
   apikey: process.env.OPEN_ELEVATION_APIKEY,
 })
 
-// List all lookups
-const lookups = await client.lookup.list()
-console.log(lookups.data)
+// List all lookups (returns Lookup[])
+const lookups = await client.Lookup().list()
+for (const lookup of lookups) {
+  console.log(lookup)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -88,9 +90,10 @@ client = OpenElevationSDK({
     "apikey": os.environ.get("OPEN_ELEVATION_APIKEY"),
 })
 
-# List all lookups
-lookups = client.lookup.list()
-print(lookups)
+# List all lookups (returns a list, raises on error)
+lookups = client.Lookup().list({})
+for lookup in lookups:
+    print(lookup)
 ```
 
 ### PHP
@@ -103,8 +106,8 @@ $client = new OpenElevationSDK([
     "apikey" => getenv("OPEN_ELEVATION_APIKEY"),
 ]);
 
-// List all lookups (throws on error)
-$lookups = $client->lookup()->list();
+// List all lookups (returns an array; throws on error)
+$lookups = $client->Lookup()->list();
 print_r($lookups);
 ```
 
@@ -131,8 +134,8 @@ client = OpenElevationSDK.new({
   "apikey" => ENV["OPEN_ELEVATION_APIKEY"],
 })
 
-# List all lookups
-lookups = client.lookup.list
+# List all lookups (returns an Array; raises on error)
+lookups = client.Lookup.list
 puts lookups
 ```
 
@@ -146,7 +149,7 @@ local client = sdk.new({
 })
 
 -- List all lookups
-local lookups, err = client:lookup():list()
+local lookups, err = client:Lookup():list()
 print(lookups)
 ```
 
@@ -159,22 +162,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = OpenElevationSDK.test()
-const result = await client.lookup.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const lookup = await client.Lookup().load({ id: 'test01' })
+// lookup is a bare Lookup populated with mock data
+console.log(lookup)
 ```
 
 ### Python
 
 ```python
 client = OpenElevationSDK.test()
-result = client.lookup.load({"id": "test01"})
+lookup = client.Lookup().load({"id": "test01"})
+print(lookup)
 ```
 
 ### PHP
 
 ```php
-$client = OpenElevationSDK::test();
-$result = $client->lookup()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = OpenElevationSDK::test([
+    "entity" => ["lookup" => ["test01" => ["id" => "test01"]]],
+]);
+$lookup = $client->Lookup()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -189,15 +197,18 @@ result, err := client.Lookup(nil).Load(
 ### Ruby
 
 ```ruby
-client = OpenElevationSDK.test
-result = client.lookup.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = OpenElevationSDK.test({
+  "entity" => { "lookup" => { "test01" => { "id" => "test01" } } },
+})
+lookup = client.Lookup.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:lookup():load({ id = "test01" })
+local result, err = client:Lookup():load({ id = "test01" })
 ```
 
 ## How it works
@@ -245,6 +256,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

@@ -110,7 +110,7 @@ Alias for `OpenElevationSDK.test()`.
 ## LookupEntity
 
 ```ts
-const lookup = client.lookup
+const lookup = client.Lookup()
 ```
 
 ### Fields
@@ -130,7 +130,7 @@ const lookup = client.lookup
 Create a new entity with the given data.
 
 ```ts
-const result = await client.lookup.create({
+const result = await client.Lookup().create({
   location: /* `$ARRAY` */,
 })
 ```
@@ -140,7 +140,7 @@ const result = await client.lookup.create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.lookup.list()
+const results = await client.Lookup().list()
 ```
 
 ### Common Methods

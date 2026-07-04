@@ -220,25 +220,15 @@ class OpenElevationSDK:
         }
 
 
-    @property
-    def lookup(self):
-        """Idiomatic facade: client.lookup.list() / client.lookup.load({"id": ...})."""
-        from entity.lookup_entity import LookupEntity
-        cached = getattr(self, "_lookup", None)
-        if cached is None:
-            cached = LookupEntity(self, None)
-            self._lookup = cached
-        return cached
-
-    def Lookup(self, data=None):
-        # Deprecated: use client.lookup instead.
+    def Lookup(self, data=None) -> "LookupEntity":
+        """Entity factory: client.Lookup().list({}) / client.Lookup().load({"id": ...})."""
         from entity.lookup_entity import LookupEntity
         return LookupEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "OpenElevationSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -258,3 +248,9 @@ class OpenElevationSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.lookup_entity import LookupEntity

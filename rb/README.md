@@ -30,16 +30,14 @@ client = OpenElevationSDK.new({
 })
 ```
 
-### 2. List lookups
+### 2. List lookup records
 
 ```ruby
 begin
-  result = client.lookup.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Lookup records — iterate directly.
+  lookups = client.Lookup.list
+  lookups.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -49,8 +47,8 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# Create
-created = client.lookup.create({ "name" => "Example" })
+# create returns the bare created Lookup record.
+created = client.Lookup.create({ "name" => "Example" })
 
 ```
 
@@ -95,13 +93,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = OpenElevationSDK.test
+client = OpenElevationSDK.test({
+  "entity" => { "lookup" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.lookup.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+lookup = client.Lookup.load({ "id" => "test01" })
+puts lookup
 ```
 
 ### Use a custom fetch function
@@ -239,7 +241,7 @@ API path: `/api/v1/lookup`
 
 ### Lookup
 
-Create an instance: `const lookup = client.lookup`
+Create an instance: `lookup = client.Lookup`
 
 #### Operations
 
@@ -260,15 +262,16 @@ Create an instance: `const lookup = client.lookup`
 
 #### Example: List
 
-```ts
-const lookups = await client.lookup.list()
+```ruby
+# list returns an Array of Lookup records (raises on error).
+lookups = client.Lookup.list
 ```
 
 #### Example: Create
 
-```ts
-const lookup = await client.lookup.create({
-  location: /* `$ARRAY` */,
+```ruby
+lookup = client.Lookup.create({
+  "location" => nil, # `$ARRAY`
 })
 ```
 
@@ -344,7 +347,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-lookup = client.lookup
+lookup = client.Lookup
 lookup.load({ "id" => "example_id" })
 
 # lookup.data_get now returns the loaded lookup data

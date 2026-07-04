@@ -31,18 +31,16 @@ $client = new OpenElevationSDK([
 ]);
 ```
 
-### 2. List lookups
+### 2. List lookup records
 
 ```php
 try {
-    $result = $client->lookup()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Lookup records — iterate directly.
+    $lookups = $client->Lookup()->list();
+    foreach ($lookups as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -50,8 +48,8 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// Create
-$created = $client->lookup()->create(["name" => "Example"]);
+// create() returns the bare created Lookup record.
+$created = $client->Lookup()->create(["name" => "Example"]);
 
 ```
 
@@ -96,13 +94,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = OpenElevationSDK::test();
+$client = OpenElevationSDK::test([
+    "entity" => ["lookup" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->lookup()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$lookup = $client->Lookup()->load(["id" => "test01"]);
+print_r($lookup);
 ```
 
 ### Use a custom fetch function
@@ -244,7 +246,7 @@ API path: `/api/v1/lookup`
 
 ### Lookup
 
-Create an instance: `const lookup = client.lookup`
+Create an instance: `$lookup = $client->Lookup();`
 
 #### Operations
 
@@ -265,16 +267,17 @@ Create an instance: `const lookup = client.lookup`
 
 #### Example: List
 
-```ts
-const lookups = await client.lookup.list()
+```php
+// list() returns an array of Lookup records (throws on error).
+$lookups = $client->Lookup()->list();
 ```
 
 #### Example: Create
 
-```ts
-const lookup = await client.lookup.create({
-  location: /* `$ARRAY` */,
-})
+```php
+$lookup = $client->Lookup()->create([
+    "location" => null, // `$ARRAY`
+]);
 ```
 
 
@@ -349,7 +352,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$lookup = $client->lookup();
+$lookup = $client->Lookup();
 $lookup->load(["id" => "example_id"]);
 
 // $lookup->dataGet() now returns the loaded lookup data

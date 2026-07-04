@@ -34,14 +34,16 @@ client = OpenElevationSDK({
 })
 ```
 
-### 2. List lookups
+### 2. List lookup records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.lookup.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    lookups = client.Lookup().list({})
+    for lookup in lookups:
+        print(lookup)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -49,8 +51,8 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create
-created = client.lookup.create({"name": "Example"})
+# Create — returns the bare created record (a dict)
+created = client.Lookup().create({"name": "Example"})
 
 ```
 
@@ -97,8 +99,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = OpenElevationSDK.test()
 
-result = client.lookup.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+lookup = client.Lookup().load({"id": "test01"})
+# lookup contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -237,7 +240,7 @@ API path: `/api/v1/lookup`
 
 ### Lookup
 
-Create an instance: `const lookup = client.lookup`
+Create an instance: `lookup = client.Lookup()`
 
 #### Operations
 
@@ -258,15 +261,15 @@ Create an instance: `const lookup = client.lookup`
 
 #### Example: List
 
-```ts
-const lookups = await client.lookup.list()
+```python
+lookups = client.Lookup().list({})
 ```
 
 #### Example: Create
 
-```ts
-const lookup = await client.lookup.create({
-  location: /* `$ARRAY` */,
+```python
+lookup = client.Lookup().create({
+    "location": ...,  # `$ARRAY`
 })
 ```
 
@@ -341,7 +344,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-lookup = client.lookup
+lookup = client.Lookup()
 lookup.load({"id": "example_id"})
 
 # lookup.data_get() now returns the loaded lookup data

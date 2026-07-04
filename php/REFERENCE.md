@@ -86,7 +86,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## LookupEntity
 
 ```php
-$lookup = $client->lookup();
+$lookup = $client->Lookup();
 ```
 
 ### Fields
@@ -106,7 +106,7 @@ $lookup = $client->lookup();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->lookup()->create([
+$result = $client->Lookup()->create([
   "location" => /* `$ARRAY` */,
 ]);
 ```
@@ -116,7 +116,7 @@ $result = $client->lookup()->create([
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->lookup()->list([]);
+$results = $client->Lookup()->list([]);
 ```
 
 ### Common Methods

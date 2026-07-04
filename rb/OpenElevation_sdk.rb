@@ -208,13 +208,7 @@ class OpenElevationSDK
   end
 
 
-  # Idiomatic facade: client.lookup.list / client.lookup.load({ "id" => ... })
-  def lookup
-    require_relative 'entity/lookup_entity'
-    @lookup ||= LookupEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.lookup instead.
+  # Canonical facade: client.Lookup.list / client.Lookup.load({ "id" => ... })
   def Lookup(data = nil)
     require_relative 'entity/lookup_entity'
     LookupEntity.new(self, data)

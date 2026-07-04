@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:lookup():list() / client:lookup():load({ id = ... })
-function OpenElevationSDK:lookup(data)
+-- Idiomatic facade: client:Lookup():list() / client:Lookup():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function OpenElevationSDK:Lookup(data)
   local EntityMod = require("entity.lookup_entity")
   if data == nil then
     if self._lookup == nil then
@@ -253,12 +254,6 @@ function OpenElevationSDK:lookup(data)
     end
     return self._lookup
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:lookup() instead.
-function OpenElevationSDK:Lookup(data)
-  local EntityMod = require("entity.lookup_entity")
   return EntityMod.new(self, data)
 end
 

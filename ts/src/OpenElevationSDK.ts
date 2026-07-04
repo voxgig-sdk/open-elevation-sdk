@@ -204,14 +204,7 @@ class OpenElevationSDK {
 
 
 
-  _lookup?: LookupEntity
-
-  // Idiomatic facade: `client.lookup.list()` / `client.lookup.load({ id })`.
-  get lookup(): LookupEntity {
-    return (this._lookup ??= new LookupEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.lookup` instead. */
+  // Entity access: `client.Lookup().list()` / `client.Lookup().load({ id })`.
   Lookup(data?: any) {
     const self = this
     return new LookupEntity(self,data)

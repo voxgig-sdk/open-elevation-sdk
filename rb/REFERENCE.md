@@ -87,7 +87,7 @@ same parameters as `direct()`. Raises on error.
 ## LookupEntity
 
 ```ruby
-lookup = client.lookup
+lookup = client.Lookup
 ```
 
 ### Fields
@@ -107,7 +107,7 @@ lookup = client.lookup
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.lookup.create({
+result = client.Lookup.create({
   "location" => # `$ARRAY`,
 })
 ```
@@ -117,7 +117,7 @@ result = client.lookup.create({
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.lookup.list(nil)
+results = client.Lookup.list(nil)
 ```
 
 ### Common Methods

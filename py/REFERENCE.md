@@ -81,7 +81,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## LookupEntity
 
 ```python
-lookup = client.lookup
+lookup = client.Lookup()
 ```
 
 ### Fields
@@ -101,8 +101,8 @@ lookup = client.lookup
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.lookup.create({
-    "location": # `$ARRAY`,
+result = client.Lookup().create({
+    "location": ...,  # `$ARRAY`
 })
 ```
 
@@ -111,7 +111,9 @@ result = client.lookup.create({
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.lookup.list({})
+results = client.Lookup().list({})
+for lookup in results:
+    print(lookup)
 ```
 
 ### Common Methods
