@@ -2,6 +2,8 @@
 
 import { LookupEntity } from './entity/LookupEntity'
 
+export type * from './OpenElevationTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -202,6 +204,14 @@ class OpenElevationSDK {
 
 
 
+  _lookup?: LookupEntity
+
+  // Idiomatic facade: `client.lookup.list()` / `client.lookup.load({ id })`.
+  get lookup(): LookupEntity {
+    return (this._lookup ??= new LookupEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.lookup` instead. */
   Lookup(data?: any) {
     const self = this
     return new LookupEntity(self,data)

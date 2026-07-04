@@ -244,6 +244,19 @@ end
 
 
 
+-- Idiomatic facade: client:lookup():list() / client:lookup():load({ id = ... })
+function OpenElevationSDK:lookup(data)
+  local EntityMod = require("entity.lookup_entity")
+  if data == nil then
+    if self._lookup == nil then
+      self._lookup = EntityMod.new(self, nil)
+    end
+    return self._lookup
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:lookup() instead.
 function OpenElevationSDK:Lookup(data)
   local EntityMod = require("entity.lookup_entity")
   return EntityMod.new(self, data)

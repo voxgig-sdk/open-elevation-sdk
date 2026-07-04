@@ -245,6 +245,9 @@ func (sdk *OpenElevationSDK) Direct(fetchargs map[string]any) (map[string]any, e
 }
 
 
+// Lookup returns a Lookup entity bound to this client.
+// Idiomatic usage: client.Lookup(nil).List(nil, nil) or
+// client.Lookup(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *OpenElevationSDK) Lookup(data map[string]any) OpenElevationEntity {
 	return NewLookupEntityFunc(sdk, data)
 }

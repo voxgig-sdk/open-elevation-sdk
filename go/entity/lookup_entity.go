@@ -85,6 +85,27 @@ func (e *LookupEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Lookup; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *LookupEntity) DataTyped(data ...Lookup) Lookup {
+	if len(data) > 0 {
+		return typedFrom[Lookup](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Lookup](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Lookup (all fields
+// optional at the wire level).
+func (e *LookupEntity) MatchTyped(match ...Lookup) Lookup {
+	if len(match) > 0 {
+		return typedFrom[Lookup](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Lookup](e.Match())
+}
+
 func (e *LookupEntity) Load(_ map[string]any, _ map[string]any) (any, error) {
 	return core.UnsupportedOp("load", e.name)
 }
@@ -110,6 +131,17 @@ func (e *LookupEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, 
 	})
 }
 
+// ListTyped is the statically-typed variant of List: it takes an
+// LookupListMatch and returns []Lookup. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *LookupEntity) ListTyped(reqmatch LookupListMatch, ctrl map[string]any) ([]Lookup, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Lookup](res), nil
+}
+
 
 
 
@@ -133,6 +165,17 @@ func (e *LookupEntity) Create(reqdata map[string]any, ctrl map[string]any) (any,
 			}
 		}
 	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// LookupCreateData and returns an Lookup. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *LookupEntity) CreateTyped(reqdata LookupCreateData, ctrl map[string]any) (Lookup, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return Lookup{}, err
+	}
+	return typedFrom[Lookup](res), nil
 }
 
 

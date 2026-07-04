@@ -9,9 +9,12 @@ The TypeScript SDK for the OpenElevation API — a type-safe, entity-oriented cl
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/open-elevation
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/open-elevation-sdk/releases](https://github.com/voxgig-sdk/open-elevation-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,17 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { OpenElevationSDK } from 'open-elevation'
+import { OpenElevationSDK } from '@voxgig-sdk/open-elevation'
 
 const client = new OpenElevationSDK({
-  apikey: process.env.OPEN-ELEVATION_APIKEY,
+  apikey: process.env.OPEN_ELEVATION_APIKEY,
 })
 ```
 
 ### 2. List lookups
 
 ```ts
-const result = await client.Lookup().list()
+const result = await client.lookup.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -43,7 +46,7 @@ if (result.ok) {
 
 ```ts
 // Create
-const created = await client.Lookup().create({
+const created = await client.lookup.create({
   name: 'Example',
 })
 
@@ -91,7 +94,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = OpenElevationSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.lookup.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -108,7 +111,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.lookup
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -145,8 +148,8 @@ const client = new OpenElevationSDK({
 Create a `.env.local` file at the project root:
 
 ```
-OPEN-ELEVATION_TEST_LIVE=TRUE
-OPEN-ELEVATION_APIKEY=<your-key>
+OPEN_ELEVATION_TEST_LIVE=TRUE
+OPEN_ELEVATION_APIKEY=<your-key>
 ```
 
 Then run:
@@ -282,7 +285,7 @@ API path: `/api/v1/lookup`
 
 ### Lookup
 
-Create an instance: `const lookup = client.Lookup()`
+Create an instance: `const lookup = client.lookup`
 
 #### Operations
 
@@ -304,13 +307,13 @@ Create an instance: `const lookup = client.Lookup()`
 #### Example: List
 
 ```ts
-const lookups = await client.Lookup().list()
+const lookups = await client.lookup.list()
 ```
 
 #### Example: Create
 
 ```ts
-const lookup = await client.Lookup().create({
+const lookup = await client.lookup.create({
   location: /* `$ARRAY` */,
 })
 ```
@@ -373,7 +376,7 @@ open-elevation/
 Import the SDK from the package root:
 
 ```ts
-import { OpenElevationSDK } from 'open-elevation'
+import { OpenElevationSDK } from '@voxgig-sdk/open-elevation'
 ```
 
 ### Entity state
@@ -383,11 +386,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const lookup = client.lookup
+await lookup.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// lookup.data() now returns the loaded lookup data
+// lookup.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

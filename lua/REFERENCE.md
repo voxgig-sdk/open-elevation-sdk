@@ -84,7 +84,7 @@ same parameters as `direct()`.
 ## LookupEntity
 
 ```lua
-local lookup = client:Lookup(nil)
+local lookup = client:lookup(nil)
 ```
 
 ### Fields
@@ -104,7 +104,7 @@ local lookup = client:Lookup(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Lookup():create({
+local result, err = client:lookup():create({
   location = --[[ `$ARRAY` ]],
 })
 ```
@@ -114,7 +114,7 @@ local result, err = client:Lookup():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Lookup():list()
+local results, err = client:lookup():list()
 ```
 
 ### Common Methods

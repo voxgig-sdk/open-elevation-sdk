@@ -44,16 +44,13 @@ class TestLookupEntity:
         lookup_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.lookup"), "lookup_ref01"))
 
-        lookup_ref01_data_result, err = lookup_ref01_ent.create(lookup_ref01_data, None)
-        assert err is None
-        lookup_ref01_data = helpers.to_map(lookup_ref01_data_result)
+        lookup_ref01_data = helpers.to_map(lookup_ref01_ent.create(lookup_ref01_data, None))
         assert lookup_ref01_data is not None
 
         # LIST
         lookup_ref01_match = {}
 
-        lookup_ref01_list_result, err = lookup_ref01_ent.list(lookup_ref01_match, None)
-        assert err is None
+        lookup_ref01_list_result = lookup_ref01_ent.list(lookup_ref01_match, None)
         assert isinstance(lookup_ref01_list_result, list)
 
         found_item = vs.select(

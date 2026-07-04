@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch LookupListMatch
+---@param ctrl? table
+---@return Lookup[]
+---@return string? err
 function LookupEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -103,6 +107,10 @@ end
 
 
 
+---@param reqdata LookupCreateData
+---@param ctrl? table
+---@return Lookup
+---@return string? err
 function LookupEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

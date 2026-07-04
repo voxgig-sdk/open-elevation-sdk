@@ -43,16 +43,14 @@ class LookupEntityTest extends TestCase
         $lookup_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.lookup"), "lookup_ref01"));
 
-        [$lookup_ref01_data_result, $err] = $lookup_ref01_ent->create($lookup_ref01_data, null);
-        $this->assertNull($err);
+        $lookup_ref01_data_result = $lookup_ref01_ent->create($lookup_ref01_data, null);
         $lookup_ref01_data = Helpers::to_map($lookup_ref01_data_result);
         $this->assertNotNull($lookup_ref01_data);
 
         // LIST
         $lookup_ref01_match = [];
 
-        [$lookup_ref01_list_result, $err] = $lookup_ref01_ent->list($lookup_ref01_match, null);
-        $this->assertNull($err);
+        $lookup_ref01_list_result = $lookup_ref01_ent->list($lookup_ref01_match, null);
         $this->assertIsArray($lookup_ref01_list_result);
 
         $found_item = sdk_select(

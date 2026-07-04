@@ -55,6 +55,9 @@ class LookupEntity
         return new LookupEntity($this->_client, $opts);
     }
 
+    /**
+     * @param Lookup|array $args Lookup data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class LookupEntity
         }
     }
 
+    /**
+     * @return Lookup|array The current Lookup data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of Lookup fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class LookupEntity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of Lookup fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -86,7 +98,16 @@ class LookupEntity
     
 
     
-    public function list($reqmatch, $ctrl = null): array
+    /**
+     * List Lookup items matching the given filter.
+     *
+     * @param LookupListMatch|array|null $reqmatch Match filter (any subset
+     *   of Lookup fields) as an assoc-array; LookupListMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Lookup[]|array A list of Lookup items as assoc-arrays at
+     *   the SDK boundary; throws OpenElevationError on failure (item-5 convention).
+     */
+    public function list(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -109,7 +130,16 @@ class LookupEntity
 
 
     
-    public function create($reqdata, $ctrl = null): array
+    /**
+     * Create a new Lookup.
+     *
+     * @param LookupCreateData|array|null $reqdata Body data as an assoc-array;
+     *   a typed LookupCreateData names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Lookup|array The created Lookup as an assoc-array at the
+     *   SDK boundary; throws OpenElevationError on failure (item-5 convention).
+     */
+    public function create(?array $reqdata = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -135,7 +165,7 @@ class LookupEntity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 
