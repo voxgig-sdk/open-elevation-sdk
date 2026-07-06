@@ -221,7 +221,7 @@ class OpenElevationSDK:
 
 
     def Lookup(self, data=None) -> "LookupEntity":
-        """Entity factory: client.Lookup().list({}) / client.Lookup().load({"id": ...})."""
+        """Entity factory: client.Lookup().list() / client.Lookup().load({"id": ...})."""
         from entity.lookup_entity import LookupEntity
         return LookupEntity(self, data)
 

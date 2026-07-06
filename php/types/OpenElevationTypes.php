@@ -22,7 +22,7 @@ class Lookup
     public ?array $result = null;
 }
 
-/** Match filter for Lookup#list (any subset of Lookup fields). */
+/** Request payload for Lookup#list. */
 class LookupListMatch
 {
     public ?float $elevation = null;
@@ -32,12 +32,12 @@ class LookupListMatch
     public ?array $result = null;
 }
 
-/** Match filter for Lookup#create (any subset of Lookup fields). */
+/** Request payload for Lookup#create. */
 class LookupCreateData
 {
     public ?float $elevation = null;
     public ?float $latitude = null;
-    public ?array $location = null;
+    public array $location;
     public ?float $longitude = null;
     public ?array $result = null;
 }

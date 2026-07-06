@@ -8,7 +8,7 @@ Complete API reference for the OpenElevation Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'open-elevation_sdk'
+require_relative 'OpenElevation_sdk'
 
 client = OpenElevationSDK.new(options)
 ```
@@ -94,11 +94,11 @@ lookup = client.Lookup
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `elevation` | ``$NUMBER`` | No |  |
-| `latitude` | ``$NUMBER`` | No |  |
-| `location` | ``$ARRAY`` | Yes |  |
-| `longitude` | ``$NUMBER`` | No |  |
-| `result` | ``$ARRAY`` | No |  |
+| `elevation` | `Float` | No |  |
+| `latitude` | `Float` | No |  |
+| `location` | `Array` | Yes |  |
+| `longitude` | `Float` | No |  |
+| `result` | `Array` | No |  |
 
 ### Operations
 
@@ -108,16 +108,16 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Lookup.create({
-  "location" => # `$ARRAY`,
+  "location" => [], # Array
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Lookup.list(nil)
+results = client.Lookup.list
 ```
 
 ### Common Methods

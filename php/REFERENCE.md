@@ -8,7 +8,7 @@ Complete API reference for the OpenElevation PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/open-elevation_sdk.php';
+require_once __DIR__ . '/openelevation_sdk.php';
 
 $client = new OpenElevationSDK($options);
 ```
@@ -46,11 +46,11 @@ $client = OpenElevationSDK::test();
 
 Create a new `LookupEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): OpenElevationUtility`
 
 Return a copy of the SDK utility object.
 
@@ -93,11 +93,11 @@ $lookup = $client->Lookup();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `elevation` | ``$NUMBER`` | No |  |
-| `latitude` | ``$NUMBER`` | No |  |
-| `location` | ``$ARRAY`` | Yes |  |
-| `longitude` | ``$NUMBER`` | No |  |
-| `result` | ``$ARRAY`` | No |  |
+| `elevation` | `float` | No |  |
+| `latitude` | `float` | No |  |
+| `location` | `array` | Yes |  |
+| `longitude` | `float` | No |  |
+| `result` | `array` | No |  |
 
 ### Operations
 
@@ -107,33 +107,33 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Lookup()->create([
-  "location" => /* `$ARRAY` */,
+  "location" => null, // array
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Lookup()->list([]);
+$results = $client->Lookup()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -142,7 +142,7 @@ Set the entity match criteria.
 Create a new `LookupEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

@@ -14,8 +14,18 @@
 ---@field result? table
 
 ---@class LookupListMatch
+---@field elevation? number
+---@field latitude? number
+---@field location? table
+---@field longitude? number
+---@field result? table
 
 ---@class LookupCreateData
+---@field elevation? number
+---@field latitude? number
+---@field location table
+---@field longitude? number
+---@field result? table
 
 local M = {}
 

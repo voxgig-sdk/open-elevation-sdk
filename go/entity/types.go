@@ -17,8 +17,7 @@ type Lookup struct {
 	Result *[]any `json:"result,omitempty"`
 }
 
-// LookupListMatch mirrors the lookup fields as an all-optional match
-// filter (Go analog of Partial<Lookup>).
+// LookupListMatch is the typed request payload for Lookup.ListTyped.
 type LookupListMatch struct {
 	Elevation *float64 `json:"elevation,omitempty"`
 	Latitude *float64 `json:"latitude,omitempty"`
@@ -27,12 +26,11 @@ type LookupListMatch struct {
 	Result *[]any `json:"result,omitempty"`
 }
 
-// LookupCreateData mirrors the lookup fields as an all-optional match
-// filter (Go analog of Partial<Lookup>).
+// LookupCreateData is the typed request payload for Lookup.CreateTyped.
 type LookupCreateData struct {
 	Elevation *float64 `json:"elevation,omitempty"`
 	Latitude *float64 `json:"latitude,omitempty"`
-	Location *[]any `json:"location,omitempty"`
+	Location []any `json:"location"`
 	Longitude *float64 `json:"longitude,omitempty"`
 	Result *[]any `json:"result,omitempty"`
 }

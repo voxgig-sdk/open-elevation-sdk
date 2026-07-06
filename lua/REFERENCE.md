@@ -91,11 +91,11 @@ local lookup = client:Lookup(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `elevation` | ``$NUMBER`` | No |  |
-| `latitude` | ``$NUMBER`` | No |  |
-| `location` | ``$ARRAY`` | Yes |  |
-| `longitude` | ``$NUMBER`` | No |  |
-| `result` | ``$ARRAY`` | No |  |
+| `elevation` | `number` | No |  |
+| `latitude` | `number` | No |  |
+| `location` | `table` | Yes |  |
+| `longitude` | `number` | No |  |
+| `result` | `table` | No |  |
 
 ### Operations
 
@@ -105,7 +105,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Lookup():create({
-  location = --[[ `$ARRAY` ]],
+  location = --[[ table ]],
 })
 ```
 

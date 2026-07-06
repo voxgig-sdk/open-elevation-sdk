@@ -117,11 +117,11 @@ const lookup = client.Lookup()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `elevation` | ``$NUMBER`` | No |  |
-| `latitude` | ``$NUMBER`` | No |  |
-| `location` | ``$ARRAY`` | Yes |  |
-| `longitude` | ``$NUMBER`` | No |  |
-| `result` | ``$ARRAY`` | No |  |
+| `elevation` | `number` | No |  |
+| `latitude` | `number` | No |  |
+| `location` | `any[]` | Yes |  |
+| `longitude` | `number` | No |  |
+| `result` | `any[]` | No |  |
 
 ### Operations
 
@@ -131,7 +131,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Lookup().create({
-  location: /* `$ARRAY` */,
+  location: /* any[] */,
 })
 ```
 

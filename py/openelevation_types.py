@@ -35,9 +35,12 @@ class LookupListMatch(TypedDict, total=False):
     result: list
 
 
-class LookupCreateData(TypedDict, total=False):
+class LookupCreateDataRequired(TypedDict):
+    location: list
+
+
+class LookupCreateData(LookupCreateDataRequired, total=False):
     elevation: float
     latitude: float
-    location: list
     longitude: float
     result: list

@@ -13,7 +13,19 @@ export interface Lookup {
   result?: any[]
 }
 
-export type LookupListMatch = Partial<Lookup>
+export interface LookupListMatch {
+  elevation?: number
+  latitude?: number
+  location?: any[]
+  longitude?: number
+  result?: any[]
+}
 
-export type LookupCreateData = Partial<Lookup>
+export interface LookupCreateData {
+  elevation?: number
+  latitude?: number
+  location: any[]
+  longitude?: number
+  result?: any[]
+}
 

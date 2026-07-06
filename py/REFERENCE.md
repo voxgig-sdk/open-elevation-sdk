@@ -8,7 +8,7 @@ Complete API reference for the OpenElevation Python SDK.
 ### Constructor
 
 ```python
-from open-elevation_sdk import OpenElevationSDK
+from openelevation_sdk import OpenElevationSDK
 
 client = OpenElevationSDK(options)
 ```
@@ -88,11 +88,11 @@ lookup = client.Lookup()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `elevation` | ``$NUMBER`` | No |  |
-| `latitude` | ``$NUMBER`` | No |  |
-| `location` | ``$ARRAY`` | Yes |  |
-| `longitude` | ``$NUMBER`` | No |  |
-| `result` | ``$ARRAY`` | No |  |
+| `elevation` | `float` | No |  |
+| `latitude` | `float` | No |  |
+| `location` | `list` | Yes |  |
+| `longitude` | `float` | No |  |
+| `result` | `list` | No |  |
 
 ### Operations
 
@@ -102,16 +102,16 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Lookup().create({
-    "location": ...,  # `$ARRAY`
+    "location": [],  # list
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Lookup().list({})
+results = client.Lookup().list()
 for lookup in results:
     print(lookup)
 ```

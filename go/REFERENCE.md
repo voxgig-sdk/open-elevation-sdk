@@ -98,11 +98,11 @@ lookup := client.Lookup(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `elevation` | ``$NUMBER`` | No |  |
-| `latitude` | ``$NUMBER`` | No |  |
-| `location` | ``$ARRAY`` | Yes |  |
-| `longitude` | ``$NUMBER`` | No |  |
-| `result` | ``$ARRAY`` | No |  |
+| `elevation` | `float64` | No |  |
+| `latitude` | `float64` | No |  |
+| `location` | `[]any` | Yes |  |
+| `longitude` | `float64` | No |  |
+| `result` | `[]any` | No |  |
 
 ### Operations
 
@@ -112,7 +112,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Lookup(nil).Create(map[string]any{
-    "location": /* `$ARRAY` */,
+    "location": /* []any */,
 }, nil)
 ```
 

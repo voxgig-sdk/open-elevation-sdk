@@ -33,7 +33,7 @@ Lookup = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Lookup#list (any subset of Lookup fields).
+# Request payload for Lookup#list.
 #
 # @!attribute [rw] elevation
 #   @return [Float, nil]
@@ -58,7 +58,7 @@ LookupListMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Lookup#create (any subset of Lookup fields).
+# Request payload for Lookup#create.
 #
 # @!attribute [rw] elevation
 #   @return [Float, nil]
@@ -67,7 +67,7 @@ LookupListMatch = Struct.new(
 #   @return [Float, nil]
 #
 # @!attribute [rw] location
-#   @return [Array, nil]
+#   @return [Array]
 #
 # @!attribute [rw] longitude
 #   @return [Float, nil]
