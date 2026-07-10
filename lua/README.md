@@ -292,7 +292,7 @@ local lookups, err = client:Lookup():list()
 
 ```lua
 local lookup, err = client:Lookup():create({
-  location = nil, -- table
+  location = {}, -- table
 })
 ```
 

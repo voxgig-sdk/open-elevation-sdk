@@ -297,8 +297,8 @@ Create an instance: `lookup := client.Lookup(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 
 #### Fields
 
@@ -324,8 +324,12 @@ fmt.Println(lookups) // the array of records
 
 ```go
 result, err := client.Lookup(nil).Create(map[string]any{
-    "location": /* []any */,
+    "location": []any{},
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 

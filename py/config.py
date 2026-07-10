@@ -16,7 +16,7 @@ def make_config():
         "options": {
             "base": "https://api.open-elevation.com",
             "auth": {
-                "prefix": "Bearer",
+                "prefix": "",
             },
             "headers": {
         "content-type": "application/json",

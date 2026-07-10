@@ -92,6 +92,7 @@ same parameters as `Direct()`.
 
 ```go
 lookup := client.Lookup(nil)
+fmt.Println(lookup.GetName()) // "lookup"
 ```
 
 ### Fields
@@ -106,22 +107,30 @@ lookup := client.Lookup(nil)
 
 ### Operations
 
-#### `Create(reqdata, ctrl map[string]any) (any, error)`
-
-Create a new entity with the given data.
-
-```go
-result, err := client.Lookup(nil).Create(map[string]any{
-    "location": /* []any */,
-}, nil)
-```
-
 #### `List(reqmatch, ctrl map[string]any) (any, error)`
 
 List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Lookup(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
+```
+
+#### `Create(reqdata, ctrl map[string]any) (any, error)`
+
+Create a new entity with the given data.
+
+```go
+result, err := client.Lookup(nil).Create(map[string]any{
+    "location": []any{},
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

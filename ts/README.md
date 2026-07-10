@@ -348,7 +348,7 @@ const lookups = await client.Lookup().list()
 
 ```ts
 const lookup = await client.Lookup().create({
-  location: /* any[] */,
+  location: [],
 })
 ```
 

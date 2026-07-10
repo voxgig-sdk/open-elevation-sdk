@@ -131,7 +131,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Lookup().create({
-  location: /* any[] */,
+  location: [],
 })
 ```
 

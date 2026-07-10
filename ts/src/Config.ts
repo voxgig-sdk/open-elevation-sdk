@@ -39,7 +39,7 @@ class Config {
     base: 'https://api.open-elevation.com',
 
     auth: {
-      prefix: 'Bearer',
+      prefix: '',
     },
 
     headers: {

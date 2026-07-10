@@ -12,16 +12,23 @@ main: {
         name: "GPLv2"
         url: "https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"
       }
+      security: {
+        in: "header"
+        name: "X-API-Key"
+        prefix: ""
+        scheme: "ApiKeyAuth"
+        type: "apiKey"
+      }
       servers: [
         {
           description: "Public API Server"
           url: "https://api.open-elevation.com"
         }
       ]
+      summary: "Open-Elevation is a free and open-source elevation API that provides elevation data for geographical points."
       termsOfService: "https://www.open-elevation.com/"
       title: "Open-Elevation API"
       version: "1.0.0"
+      website: "https://www.open-elevation.com/"
     }
   }
-}
-
