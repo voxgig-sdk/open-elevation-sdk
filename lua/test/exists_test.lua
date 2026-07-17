@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- OpenElevation SDK exists test
 
 local sdk = require("open-elevation_sdk")
 
