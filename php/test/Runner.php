@@ -43,8 +43,8 @@ class OpenElevationTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('OPENELEVATION_TEST_LIVE');
-        $override = self::getenv('OPENELEVATION_TEST_OVERRIDE');
+        $live = self::getenv('OPEN_ELEVATION_TEST_LIVE');
+        $override = self::getenv('OPEN_ELEVATION_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class OpenElevationTestRunner
             }
         }
 
-        $explain = self::getenv('OPENELEVATION_TEST_EXPLAIN');
+        $explain = self::getenv('OPEN_ELEVATION_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['OPENELEVATION_TEST_EXPLAIN'] = $explain;
+            $m['OPEN_ELEVATION_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

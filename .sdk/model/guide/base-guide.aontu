@@ -9,6 +9,7 @@ guide: {
     path: "/api/v1/lookup": {
       op: create: method: *POST
       op: list: method: *GET
+      op: list: transform: res: *("`body.results`")|top
     }
   }
 

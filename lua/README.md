@@ -53,7 +53,7 @@ end
 
 ```lua
 -- Create
-local created, err = client:Lookup():create({ location = {} })
+local created, err = client:Lookup():create({ locations = {} })
 if err then error(err) end
 
 ```
@@ -233,9 +233,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local lookup, err = client:Lookup():load()
+    local lookup, err = client:Lookup():list()
     if err then error(err) end
-    -- lookup is the loaded record
+    -- lookup is the record list
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -248,9 +248,9 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | --- | --- |
 | `elevation` |  |
 | `latitude` |  |
-| `location` |  |
+| `locations` |  |
 | `longitude` |  |
-| `result` |  |
+| `results` |  |
 
 Operations: Create, List.
 
@@ -278,9 +278,9 @@ Create an instance: `local lookup = client:Lookup(nil)`
 | --- | --- | --- |
 | `elevation` | `number` |  |
 | `latitude` | `number` |  |
-| `location` | `table` |  |
+| `locations` | `table` |  |
 | `longitude` | `number` |  |
-| `result` | `table` |  |
+| `results` | `table` |  |
 
 #### Example: List
 
@@ -292,7 +292,7 @@ local lookups, err = client:Lookup():list()
 
 ```lua
 local lookup, err = client:Lookup():create({
-  location = {}, -- table
+  locations = {}, -- table
 })
 ```
 

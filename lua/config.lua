@@ -43,7 +43,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "location",
+            ["name"] = "locations",
             ["req"] = true,
             ["type"] = "`$ARRAY`",
             ["index$"] = 2,
@@ -57,7 +57,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "result",
+            ["name"] = "results",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 4,
@@ -72,6 +72,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/api/v1/lookup",
                 ["parts"] = {
@@ -108,6 +109,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/v1/lookup",
                 ["parts"] = {
@@ -122,7 +124,7 @@ local function make_config()
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
+                  ["res"] = "`body.results`",
                 },
                 ["index$"] = 0,
               },

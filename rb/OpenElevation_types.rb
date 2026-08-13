@@ -16,20 +16,20 @@
 # @!attribute [rw] latitude
 #   @return [Float, nil]
 #
-# @!attribute [rw] location
+# @!attribute [rw] locations
 #   @return [Array]
 #
 # @!attribute [rw] longitude
 #   @return [Float, nil]
 #
-# @!attribute [rw] result
+# @!attribute [rw] results
 #   @return [Array, nil]
 Lookup = Struct.new(
   :elevation,
   :latitude,
-  :location,
+  :locations,
   :longitude,
-  :result,
+  :results,
   keyword_init: true
 )
 
@@ -41,20 +41,20 @@ Lookup = Struct.new(
 # @!attribute [rw] latitude
 #   @return [Float, nil]
 #
-# @!attribute [rw] location
+# @!attribute [rw] locations
 #   @return [Array, nil]
 #
 # @!attribute [rw] longitude
 #   @return [Float, nil]
 #
-# @!attribute [rw] result
+# @!attribute [rw] results
 #   @return [Array, nil]
 LookupListMatch = Struct.new(
   :elevation,
   :latitude,
-  :location,
+  :locations,
   :longitude,
-  :result,
+  :results,
   keyword_init: true
 )
 
@@ -66,20 +66,20 @@ LookupListMatch = Struct.new(
 # @!attribute [rw] latitude
 #   @return [Float, nil]
 #
-# @!attribute [rw] location
+# @!attribute [rw] locations
 #   @return [Array]
 #
 # @!attribute [rw] longitude
 #   @return [Float, nil]
 #
-# @!attribute [rw] result
+# @!attribute [rw] results
 #   @return [Array, nil]
 LookupCreateData = Struct.new(
   :elevation,
   :latitude,
-  :location,
+  :locations,
   :longitude,
-  :result,
+  :results,
   keyword_init: true
 )
 

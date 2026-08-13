@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'OpenElevation',
   }
 
 
@@ -74,7 +74,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "location",
+          "name": "locations",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 2
@@ -88,7 +88,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "result",
+          "name": "results",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 4
@@ -103,6 +103,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/api/v1/lookup",
               "parts": [
@@ -139,6 +140,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/api/v1/lookup",
               "parts": [
@@ -153,7 +155,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.results`"
               },
               "index$": 0
             }

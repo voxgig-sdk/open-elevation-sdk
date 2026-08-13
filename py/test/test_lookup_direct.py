@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from openelevation_sdk.utility.voxgig_struct import voxgig_struct as vs
 from openelevation_sdk import OpenElevationSDK
-from core import helpers
+from openelevation_sdk.core import helpers
 from test import runner
 
 
@@ -58,16 +58,16 @@ def _lookup_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "OPENELEVATION_TEST_LOOKUP_ENTID": {},
-        "OPENELEVATION_TEST_LIVE": "FALSE",
-        "OPENELEVATION_APIKEY": "NONE",
+        "OPEN_ELEVATION_TEST_LOOKUP_ENTID": {},
+        "OPEN_ELEVATION_TEST_LIVE": "FALSE",
+        "OPEN_ELEVATION_APIKEY": "NONE",
     })
 
-    live = env.get("OPENELEVATION_TEST_LIVE") == "TRUE"
+    live = env.get("OPEN_ELEVATION_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("OPENELEVATION_APIKEY"),
+            "apikey": env.get("OPEN_ELEVATION_APIKEY"),
         }
         client = OpenElevationSDK(merged_opts)
         return {

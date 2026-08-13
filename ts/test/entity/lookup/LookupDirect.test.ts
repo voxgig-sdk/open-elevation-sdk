@@ -19,11 +19,15 @@ import {
 describe('LookupDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when OPENELEVATION_TEST_LIVE=TRUE.
-  afterEach(liveDelay('OPENELEVATION_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when OPEN_ELEVATION_TEST_LIVE=TRUE.
+  afterEach(liveDelay('OPEN_ELEVATION_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new OpenElevationSDK({
+      // Concrete base: a live construction must satisfy any server
+      // variables a templated base URL declares; overriding base with a
+      // literal (as the direct flow tests do) sidesteps the requirement.
+      base: 'http://localhost:8080',
       system: { fetch: async () => ({}) }
     })
     assert('function' === typeof sdk.direct)
@@ -80,19 +84,19 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'OPENELEVATION_TEST_LOOKUP_ENTID': {},
-    'OPENELEVATION_TEST_LIVE': 'FALSE',
-    'OPENELEVATION_APIKEY': 'NONE',
+    'OPEN_ELEVATION_TEST_LOOKUP_ENTID': {},
+    'OPEN_ELEVATION_TEST_LIVE': 'FALSE',
+    'OPEN_ELEVATION_APIKEY': 'NONE',
   })
 
-  const live = 'TRUE' === env.OPENELEVATION_TEST_LIVE
+  const live = 'TRUE' === env.OPEN_ELEVATION_TEST_LIVE
 
   if (live) {
     const client = new OpenElevationSDK({
-      apikey: env.OPENELEVATION_APIKEY,
+      apikey: env.OPEN_ELEVATION_APIKEY,
     })
 
-    let idmap: any = env['OPENELEVATION_TEST_LOOKUP_ENTID']
+    let idmap: any = env['OPEN_ELEVATION_TEST_LOOKUP_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }

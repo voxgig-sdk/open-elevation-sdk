@@ -90,9 +90,9 @@ lookup = client.Lookup()
 | --- | --- | --- | --- |
 | `elevation` | `float` | No |  |
 | `latitude` | `float` | No |  |
-| `location` | `list` | Yes |  |
+| `locations` | `list` | Yes |  |
 | `longitude` | `float` | No |  |
-| `result` | `list` | No |  |
+| `results` | `list` | No |  |
 
 ### Operations
 
@@ -102,7 +102,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Lookup().create({
-    "location": [],  # list
+    "locations": [],  # list
 })
 ```
 

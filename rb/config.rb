@@ -44,7 +44,7 @@ module OpenElevationConfig
             },
             {
               "active" => true,
-              "name" => "location",
+              "name" => "locations",
               "req" => true,
               "type" => "`$ARRAY`",
               "index$" => 2,
@@ -58,7 +58,7 @@ module OpenElevationConfig
             },
             {
               "active" => true,
-              "name" => "result",
+              "name" => "results",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 4,
@@ -73,6 +73,7 @@ module OpenElevationConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/api/v1/lookup",
                   "parts" => [
@@ -109,6 +110,7 @@ module OpenElevationConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/v1/lookup",
                   "parts" => [
@@ -123,7 +125,7 @@ module OpenElevationConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.results`",
                   },
                   "index$" => 0,
                 },

@@ -63,7 +63,7 @@ func main() {
     }
 
     // Create a lookup.
-    created, err := client.Lookup(nil).Create(map[string]any{"location": []any{}}, nil)
+    created, err := client.Lookup(nil).Create(map[string]any{"locations": []any{}}, nil)
     if err != nil {
         panic(err)
     }
@@ -276,9 +276,9 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | --- | --- |
 | `"elevation"` |  |
 | `"latitude"` |  |
-| `"location"` |  |
+| `"locations"` |  |
 | `"longitude"` |  |
-| `"result"` |  |
+| `"results"` |  |
 
 Operations: Create, List.
 
@@ -306,9 +306,9 @@ Create an instance: `lookup := client.Lookup(nil)`
 | --- | --- | --- |
 | `elevation` | `float64` |  |
 | `latitude` | `float64` |  |
-| `location` | `[]any` |  |
+| `locations` | `[]any` |  |
 | `longitude` | `float64` |  |
-| `result` | `[]any` |  |
+| `results` | `[]any` |  |
 
 #### Example: List
 
@@ -324,7 +324,7 @@ fmt.Println(lookups) // the array of records
 
 ```go
 result, err := client.Lookup(nil).Create(map[string]any{
-    "location": []any{},
+    "locations": []any{},
 }, nil)
 if err != nil {
     panic(err)

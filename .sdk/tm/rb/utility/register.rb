@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ OpenElevationUtility.registrar = ->(u) {
   u.prepare_params = OpenElevationUtilities::PrepareParams
   u.prepare_path = OpenElevationUtilities::PreparePath
   u.prepare_query = OpenElevationUtilities::PrepareQuery
+  u.graphql_body = OpenElevationUtilities::GraphqlBody
+  u.graphql_errors = OpenElevationUtilities::GraphqlErrors
   u.result_basic = OpenElevationUtilities::ResultBasic
   u.result_body = OpenElevationUtilities::ResultBody
   u.result_headers = OpenElevationUtilities::ResultHeaders

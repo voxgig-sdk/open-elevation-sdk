@@ -8,24 +8,24 @@
 export interface Lookup {
   elevation?: number
   latitude?: number
-  location: any[]
+  locations: any[]
   longitude?: number
-  result?: any[]
+  results?: any[]
 }
 
 export interface LookupListMatch {
   elevation?: number
   latitude?: number
-  location?: any[]
+  locations?: any[]
   longitude?: number
-  result?: any[]
+  results?: any[]
 }
 
 export interface LookupCreateData {
   elevation?: number
   latitude?: number
-  location: any[]
+  locations: any[]
   longitude?: number
-  result?: any[]
+  results?: any[]
 }
 

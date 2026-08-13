@@ -17,9 +17,9 @@ class Lookup
 {
     public ?float $elevation = null;
     public ?float $latitude = null;
-    public array $location;
+    public array $locations;
     public ?float $longitude = null;
-    public ?array $result = null;
+    public ?array $results = null;
 }
 
 /** Request payload for Lookup#list. */
@@ -27,9 +27,9 @@ class LookupListMatch
 {
     public ?float $elevation = null;
     public ?float $latitude = null;
-    public ?array $location = null;
+    public ?array $locations = null;
     public ?float $longitude = null;
-    public ?array $result = null;
+    public ?array $results = null;
 }
 
 /** Request payload for Lookup#create. */
@@ -37,8 +37,8 @@ class LookupCreateData
 {
     public ?float $elevation = null;
     public ?float $latitude = null;
-    public array $location;
+    public array $locations;
     public ?float $longitude = null;
-    public ?array $result = null;
+    public ?array $results = null;
 }
 

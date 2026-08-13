@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ OpenElevationUtility::setRegistrar(function (OpenElevationUtility $u): void {
     $u->prepare_params = [OpenElevationPrepareParams::class, 'call'];
     $u->prepare_path = [OpenElevationPreparePath::class, 'call'];
     $u->prepare_query = [OpenElevationPrepareQuery::class, 'call'];
+    $u->graphql_body = [OpenElevationGraphql::class, 'body'];
+    $u->graphql_errors = [OpenElevationGraphql::class, 'errors'];
     $u->result_basic = [OpenElevationResultBasic::class, 'call'];
     $u->result_body = [OpenElevationResultBody::class, 'call'];
     $u->result_headers = [OpenElevationResultHeaders::class, 'call'];

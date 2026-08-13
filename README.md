@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = OpenElevationSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = OpenElevationSDK.test({
+  entity: {
+    lookup: {
+      test01: { id: 'test01', locations: [] },
+    },
+  },
+})
 const lookups = await client.Lookup().list()
-// lookups is an array of bare Lookup records populated with mock data
+// lookups is an array of Lookup entities, populated with mock data
+// — call lookups[0].data() for the record itself
 console.log(lookups)
 ```
 
@@ -112,7 +121,7 @@ const client = new OpenElevationSDK({
   apikey: process.env.OPEN_ELEVATION_APIKEY,
 })
 
-// List all lookups (returns Lookup[])
+// List all lookups (returns LookupEntity[] — .data() for the record)
 const lookups = await client.Lookup().list()
 for (const lookup of lookups) {
   console.log(lookup)
@@ -356,6 +365,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://api.open-elevation.com](https://api.open-elevation.com)
 

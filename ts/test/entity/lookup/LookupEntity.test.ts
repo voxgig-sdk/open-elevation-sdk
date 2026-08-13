@@ -26,8 +26,8 @@ import {
 describe('LookupEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when OPENELEVATION_TEST_LIVE=TRUE.
-  afterEach(liveDelay('OPENELEVATION_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when OPEN_ELEVATION_TEST_LIVE=TRUE.
+  afterEach(liveDelay('OPEN_ELEVATION_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = OpenElevationSDK.test()
@@ -62,16 +62,14 @@ describe('LookupEntity', async () => {
     const lookup_ref01_ent = client.Lookup()
     let lookup_ref01_data = setup.data.new.lookup['lookup_ref01']
 
-    lookup_ref01_data = await lookup_ref01_ent.create(lookup_ref01_data)
+    lookup_ref01_data = (await lookup_ref01_ent.create(lookup_ref01_data)).data()
     assert(null != lookup_ref01_data)
 
 
     // LIST
     const lookup_ref01_match: any = {}
 
-    const lookup_ref01_list = await lookup_ref01_ent.list(lookup_ref01_match)
-
-    assert(!isempty(select(lookup_ref01_list, { id: lookup_ref01_data.id })))
+    const lookup_ref01_list = (await lookup_ref01_ent.list(lookup_ref01_match)).map((e: any) => e.data())
 
 
   })

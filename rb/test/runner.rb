@@ -23,8 +23,8 @@ module OpenElevationTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("OPENELEVATION_TEST_LIVE")
-    override = getenv("OPENELEVATION_TEST_OVERRIDE")
+    live = getenv("OPEN_ELEVATION_TEST_LIVE")
+    override = getenv("OPEN_ELEVATION_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module OpenElevationTestRunner
       end
     end
 
-    explain = getenv("OPENELEVATION_TEST_EXPLAIN")
-    m["OPENELEVATION_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("OPEN_ELEVATION_TEST_EXPLAIN")
+    m["OPEN_ELEVATION_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

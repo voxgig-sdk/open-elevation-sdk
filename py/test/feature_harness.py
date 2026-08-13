@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import OpenElevationControl
-from core.error import OpenElevationError
-from core.result import OpenElevationResult
-from core.spec import OpenElevationSpec
+from openelevation_sdk.config import make_config
+from openelevation_sdk.features import _make_feature
+from openelevation_sdk.core.control import OpenElevationControl
+from openelevation_sdk.core.error import OpenElevationError
+from openelevation_sdk.core.result import OpenElevationResult
+from openelevation_sdk.core.spec import OpenElevationSpec
 
 
 # True when this SDK was generated with the named feature.

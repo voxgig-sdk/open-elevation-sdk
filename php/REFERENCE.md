@@ -95,9 +95,9 @@ $lookup = $client->Lookup();
 | --- | --- | --- | --- |
 | `elevation` | `float` | No |  |
 | `latitude` | `float` | No |  |
-| `location` | `array` | Yes |  |
+| `locations` | `array` | Yes |  |
 | `longitude` | `float` | No |  |
-| `result` | `array` | No |  |
+| `results` | `array` | No |  |
 
 ### Operations
 
@@ -107,7 +107,7 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Lookup()->create([
-  "location" => null, // array
+  "locations" => null, // array
 ]);
 ```
 

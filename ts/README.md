@@ -37,7 +37,9 @@ const client = new OpenElevationSDK({
 
 ### 2. List lookup records
 
-`list()` resolves to an array of Lookup objects — iterate it directly:
+`list()` resolves to an array of Lookup ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const lookups = await client.Lookup().list()
@@ -50,9 +52,9 @@ for (const lookup of lookups) {
 ### 4. Create, update, and remove
 
 ```ts
-// Create — returns the created Lookup
+// Create — returns the created Lookup ENTITY (.data() for the record)
 const created = await client.Lookup().create({
-  location: [],
+  locations: [],
 })
 
 ```
@@ -132,7 +134,8 @@ Create a mock client for unit testing — no server required:
 const client = OpenElevationSDK.test()
 
 const lookup = await client.Lookup().list()
-// lookup is a bare entity populated with mock response data
+// lookup is the entity, populated with mock response data
+// — call lookup.data() for the record itself
 console.log(lookup)
 ```
 
@@ -304,9 +307,9 @@ The `prepare()` method returns:
 | --- | --- |
 | `elevation` |  |
 | `latitude` |  |
-| `location` |  |
+| `locations` |  |
 | `longitude` |  |
-| `result` |  |
+| `results` |  |
 
 Operations: create, list.
 
@@ -334,9 +337,9 @@ Create an instance: `const lookup = client.Lookup()`
 | --- | --- | --- |
 | `elevation` | `number` |  |
 | `latitude` | `number` |  |
-| `location` | `any[]` |  |
+| `locations` | `any[]` |  |
 | `longitude` | `number` |  |
-| `result` | `any[]` |  |
+| `results` | `any[]` |  |
 
 #### Example: List
 
@@ -348,7 +351,7 @@ const lookups = await client.Lookup().list()
 
 ```ts
 const lookup = await client.Lookup().create({
-  location: [],
+  locations: [],
 })
 ```
 

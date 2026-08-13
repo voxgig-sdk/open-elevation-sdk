@@ -9,23 +9,23 @@
 ---@class Lookup
 ---@field elevation? number
 ---@field latitude? number
----@field location table
+---@field locations table
 ---@field longitude? number
----@field result? table
+---@field results? table
 
 ---@class LookupListMatch
 ---@field elevation? number
 ---@field latitude? number
----@field location? table
+---@field locations? table
 ---@field longitude? number
----@field result? table
+---@field results? table
 
 ---@class LookupCreateData
 ---@field elevation? number
 ---@field latitude? number
----@field location table
+---@field locations table
 ---@field longitude? number
----@field result? table
+---@field results? table
 
 local M = {}
 

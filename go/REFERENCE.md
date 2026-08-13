@@ -101,9 +101,9 @@ fmt.Println(lookup.GetName()) // "lookup"
 | --- | --- | --- | --- |
 | `elevation` | `float64` | No |  |
 | `latitude` | `float64` | No |  |
-| `location` | `[]any` | Yes |  |
+| `locations` | `[]any` | Yes |  |
 | `longitude` | `float64` | No |  |
-| `result` | `[]any` | No |  |
+| `results` | `[]any` | No |  |
 
 ### Operations
 
@@ -125,7 +125,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Lookup(nil).Create(map[string]any{
-    "location": []any{},
+    "locations": []any{},
 }, nil)
 if err != nil {
     panic(err)

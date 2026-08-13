@@ -16,11 +16,11 @@
 import pytest
 
 from openelevation_sdk import OpenElevationSDK
-from core.error import OpenElevationError
-from core.result import OpenElevationResult
-from core.response import OpenElevationResponse
-from core.spec import OpenElevationSpec
-from feature.base_feature import OpenElevationBaseFeature
+from openelevation_sdk.core.error import OpenElevationError
+from openelevation_sdk.core.result import OpenElevationResult
+from openelevation_sdk.core.response import OpenElevationResponse
+from openelevation_sdk.core.spec import OpenElevationSpec
+from openelevation_sdk.feature.base_feature import OpenElevationBaseFeature
 
 
 def _client():

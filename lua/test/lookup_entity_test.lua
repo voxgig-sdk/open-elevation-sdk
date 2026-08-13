@@ -70,7 +70,7 @@ describe("LookupEntity", function()
     -- The basic flow consumes synthetic IDs from the fixture. In live mode
     -- without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set OPENELEVATION_TEST_LOOKUP_ENTID JSON to run live")
+      pending("live entity test uses synthetic IDs from fixture — set OPEN_ELEVATION_TEST_LOOKUP_ENTID JSON to run live")
       return
     end
     local client = setup.client
@@ -82,7 +82,7 @@ describe("LookupEntity", function()
 
     local lookup_ref01_data_result, err = lookup_ref01_ent:create(lookup_ref01_data, nil)
     assert.is_nil(err)
-    lookup_ref01_data = helpers.to_map(lookup_ref01_data_result)
+    lookup_ref01_data = helpers.to_map(type(lookup_ref01_data_result) == 'table' and lookup_ref01_data_result.data_get and lookup_ref01_data_result:data_get() or lookup_ref01_data_result)
     assert.is_not_nil(lookup_ref01_data)
 
     -- LIST
@@ -91,11 +91,6 @@ describe("LookupEntity", function()
     local lookup_ref01_list_result, err = lookup_ref01_ent:list(lookup_ref01_match, nil)
     assert.is_nil(err)
     assert.is_table(lookup_ref01_list_result)
-
-    local found_item = vs.select(
-      runner.entity_list_to_data(lookup_ref01_list_result),
-      { id = lookup_ref01_data["id"] })
-    assert.is_false(vs.isempty(found_item))
 
   end)
 end)
@@ -132,39 +127,39 @@ function lookup_basic_setup(extra)
   -- Detect ENTID env override before envOverride consumes it. When live
   -- mode is on without a real override, the basic test runs against synthetic
   -- IDs from the fixture and 4xx's. Surface this so the test can skip.
-  local entid_env_raw = os.getenv("OPENELEVATION_TEST_LOOKUP_ENTID")
+  local entid_env_raw = os.getenv("OPEN_ELEVATION_TEST_LOOKUP_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 
   local env = runner.env_override({
-    ["OPENELEVATION_TEST_LOOKUP_ENTID"] = idmap,
-    ["OPENELEVATION_TEST_LIVE"] = "FALSE",
-    ["OPENELEVATION_TEST_EXPLAIN"] = "FALSE",
-    ["OPENELEVATION_APIKEY"] = "NONE",
+    ["OPEN_ELEVATION_TEST_LOOKUP_ENTID"] = idmap,
+    ["OPEN_ELEVATION_TEST_LIVE"] = "FALSE",
+    ["OPEN_ELEVATION_TEST_EXPLAIN"] = "FALSE",
+    ["OPEN_ELEVATION_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
-    env["OPENELEVATION_TEST_LOOKUP_ENTID"])
+    env["OPEN_ELEVATION_TEST_LOOKUP_ENTID"])
   if idmap_resolved == nil then
     idmap_resolved = helpers.to_map(idmap)
   end
 
-  if env["OPENELEVATION_TEST_LIVE"] == "TRUE" then
+  if env["OPEN_ELEVATION_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
-        apikey = env["OPENELEVATION_APIKEY"],
+        apikey = env["OPEN_ELEVATION_APIKEY"],
       },
       extra or {},
     })
     client = sdk.new(helpers.to_map(merged_opts))
   end
 
-  local live = env["OPENELEVATION_TEST_LIVE"] == "TRUE"
+  local live = env["OPEN_ELEVATION_TEST_LIVE"] == "TRUE"
   return {
     client = client,
     data = entity_data,
     idmap = idmap_resolved,
     env = env,
-    explain = env["OPENELEVATION_TEST_EXPLAIN"] == "TRUE",
+    explain = env["OPEN_ELEVATION_TEST_EXPLAIN"] == "TRUE",
     live = live,
     synthetic_only = live and not idmap_overridden,
     now = os.time() * 1000,

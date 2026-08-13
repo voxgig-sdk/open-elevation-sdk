@@ -66,16 +66,16 @@ function lookup_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "OPENELEVATION_TEST_LOOKUP_ENTID" => [],
-        "OPENELEVATION_TEST_LIVE" => "FALSE",
-        "OPENELEVATION_APIKEY" => "NONE",
+        "OPEN_ELEVATION_TEST_LOOKUP_ENTID" => [],
+        "OPEN_ELEVATION_TEST_LIVE" => "FALSE",
+        "OPEN_ELEVATION_APIKEY" => "NONE",
     ]);
 
-    $live = $env["OPENELEVATION_TEST_LIVE"] === "TRUE";
+    $live = $env["OPEN_ELEVATION_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["OPENELEVATION_APIKEY"],
+            "apikey" => $env["OPEN_ELEVATION_APIKEY"],
         ];
         $client = new OpenElevationSDK($merged_opts);
         return [

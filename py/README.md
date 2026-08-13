@@ -56,8 +56,8 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create — returns the bare created record (a dict)
-created = client.Lookup().create({"location": []})
+# Create — returns the ENTITY (call data_get() for the record)
+created = client.Lookup().create({"locations": []})
 
 ```
 
@@ -135,7 +135,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = OpenElevationSDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 lookup = client.Lookup().list()
 # lookup contains the mock response record
 ```
@@ -234,7 +235,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -258,9 +259,9 @@ On error, `ok` is `False` and `err` contains the error value.
 | --- | --- |
 | `elevation` |  |
 | `latitude` |  |
-| `location` |  |
+| `locations` |  |
 | `longitude` |  |
-| `result` |  |
+| `results` |  |
 
 Operations: Create, List.
 
@@ -288,9 +289,9 @@ Create an instance: `lookup = client.Lookup()`
 | --- | --- | --- |
 | `elevation` | `float` |  |
 | `latitude` | `float` |  |
-| `location` | `list` |  |
+| `locations` | `list` |  |
 | `longitude` | `float` |  |
-| `result` | `list` |  |
+| `results` | `list` |  |
 
 #### Example: List
 
@@ -302,7 +303,7 @@ lookups = client.Lookup().list()
 
 ```python
 lookup = client.Lookup().create({
-    "location": [],  # list
+    "locations": [],  # list
 })
 ```
 

@@ -93,9 +93,9 @@ local lookup = client:Lookup(nil)
 | --- | --- | --- | --- |
 | `elevation` | `number` | No |  |
 | `latitude` | `number` | No |  |
-| `location` | `table` | Yes |  |
+| `locations` | `table` | Yes |  |
 | `longitude` | `number` | No |  |
-| `result` | `table` | No |  |
+| `results` | `table` | No |  |
 
 ### Operations
 
@@ -105,7 +105,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Lookup():create({
-  location = --[[ table ]],
+  locations = --[[ table ]],
 })
 ```
 

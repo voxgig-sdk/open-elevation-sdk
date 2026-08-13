@@ -119,9 +119,9 @@ const lookup = client.Lookup()
 | --- | --- | --- | --- |
 | `elevation` | `number` | No |  |
 | `latitude` | `number` | No |  |
-| `location` | `any[]` | Yes |  |
+| `locations` | `any[]` | Yes |  |
 | `longitude` | `number` | No |  |
-| `result` | `any[]` | No |  |
+| `results` | `any[]` | No |  |
 
 ### Operations
 
@@ -131,7 +131,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Lookup().create({
-  location: [],
+  locations: [],
 })
 ```
 

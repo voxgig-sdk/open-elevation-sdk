@@ -4,25 +4,25 @@
       "LOOKUP00": {
         "elevation": 50,
         "latitude": 51,
-        "location": [],
+        "locations": [],
         "longitude": 53,
-        "result": [],
+        "results": [],
         "id": "LOOKUP00"
       },
       "LOOKUP01": {
         "elevation": 100,
         "latitude": 101,
-        "location": [],
+        "locations": [],
         "longitude": 103,
-        "result": [],
+        "results": [],
         "id": "LOOKUP01"
       },
       "LOOKUP02": {
         "elevation": 150,
         "latitude": 151,
-        "location": [],
+        "locations": [],
         "longitude": 153,
-        "result": [],
+        "results": [],
         "id": "LOOKUP02"
       }
     }
@@ -32,9 +32,9 @@
       "lookup_ref01": {
         "elevation": 200,
         "latitude": 201,
-        "location": [],
+        "locations": [],
         "longitude": 203,
-        "result": []
+        "results": []
       }
     }
   }

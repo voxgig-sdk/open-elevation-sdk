@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# OpenElevation SDK exists test
 
 import pytest
 from openelevation_sdk import OpenElevationSDK

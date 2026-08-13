@@ -96,9 +96,9 @@ lookup = client.Lookup
 | --- | --- | --- | --- |
 | `elevation` | `Float` | No |  |
 | `latitude` | `Float` | No |  |
-| `location` | `Array` | Yes |  |
+| `locations` | `Array` | Yes |  |
 | `longitude` | `Float` | No |  |
-| `result` | `Array` | No |  |
+| `results` | `Array` | No |  |
 
 ### Operations
 
@@ -108,7 +108,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Lookup.create({
-  "location" => [], # Array
+  "locations" => [], # Array
 })
 ```
 

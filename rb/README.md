@@ -49,8 +49,8 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# create returns the bare created Lookup record.
-created = client.Lookup.create({ "location" => [] })
+# create returns the ENTITY — call data_get for the created Lookup record.
+created = client.Lookup.create({ "locations" => [] })
 
 ```
 
@@ -129,7 +129,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = OpenElevationSDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 lookup = client.Lookup.list()
 puts lookup
 ```
@@ -251,9 +252,9 @@ returns a result `Hash` with these keys:
 | --- | --- |
 | `elevation` |  |
 | `latitude` |  |
-| `location` |  |
+| `locations` |  |
 | `longitude` |  |
-| `result` |  |
+| `results` |  |
 
 Operations: Create, List.
 
@@ -281,9 +282,9 @@ Create an instance: `lookup = client.Lookup`
 | --- | --- | --- |
 | `elevation` | `Float` |  |
 | `latitude` | `Float` |  |
-| `location` | `Array` |  |
+| `locations` | `Array` |  |
 | `longitude` | `Float` |  |
-| `result` | `Array` |  |
+| `results` | `Array` |  |
 
 #### Example: List
 
@@ -296,7 +297,7 @@ lookups = client.Lookup.list
 
 ```ruby
 lookup = client.Lookup.create({
-  "location" => [], # Array
+  "locations" => [], # Array
 })
 ```
 
