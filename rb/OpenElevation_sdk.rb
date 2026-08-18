@@ -28,7 +28,7 @@ class OpenElevationSDK
     utility = OpenElevationUtility.new
     @_utility = utility
 
-    config = OpenElevationConfig.make_config
+    config = OpenElevationConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

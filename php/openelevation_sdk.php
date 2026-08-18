@@ -40,7 +40,7 @@ class OpenElevationSDK
         $utility = new OpenElevationUtility();
         $this->_utility = $utility;
 
-        $config = OpenElevationConfig::make_config();
+        $config = OpenElevationConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

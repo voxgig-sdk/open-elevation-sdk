@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from openelevation_sdk.config import make_config
+from openelevation_sdk.config import shared_config
 from openelevation_sdk.features import _make_feature
 from openelevation_sdk.core.control import OpenElevationControl
 from openelevation_sdk.core.error import OpenElevationError
@@ -24,7 +24,7 @@ from openelevation_sdk.core.spec import OpenElevationSpec
 
 # True when this SDK was generated with the named feature.
 def has_feature(name):
-    feature = make_config().get("feature")
+    feature = shared_config().get("feature")
     return isinstance(feature, dict) and feature.get(name) is not None
 
 
