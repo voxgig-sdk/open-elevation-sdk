@@ -33,6 +33,9 @@ class OpenElevationConfig
         return [
             "main" => [
                 "name" => "OpenElevation",
+                "slug" => "open-elevation",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
@@ -58,23 +61,28 @@ class OpenElevationConfig
           'fields' => [
             [
               'name' => 'elevation',
+              'short' => 'Elevation in meters above sea level',
               'type' => '`$NUMBER`',
             ],
             [
               'name' => 'latitude',
+              'short' => 'Latitude of the location',
               'type' => '`$NUMBER`',
             ],
             [
               'name' => 'locations',
               'req' => true,
+              'short' => 'Array of location objects with latitude and longitude',
               'type' => '`$ARRAY`',
             ],
             [
               'name' => 'longitude',
+              'short' => 'Longitude of the location',
               'type' => '`$NUMBER`',
             ],
             [
               'name' => 'results',
+              'short' => 'Array of elevation results for the requested locations',
               'type' => '`$ARRAY`',
             ],
           ],

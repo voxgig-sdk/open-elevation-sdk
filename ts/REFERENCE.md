@@ -117,11 +117,11 @@ const lookup = client.Lookup()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `elevation` | `number` | No |  |
-| `latitude` | `number` | No |  |
-| `locations` | `any[]` | Yes |  |
-| `longitude` | `number` | No |  |
-| `results` | `any[]` | No |  |
+| `elevation` | `number` | No | Elevation in meters above sea level |
+| `latitude` | `number` | No | Latitude of the location |
+| `locations` | `any[]` | Yes | Array of location objects with latitude and longitude |
+| `longitude` | `number` | No | Longitude of the location |
+| `results` | `any[]` | No | Array of elevation results for the requested locations |
 
 ### Operations
 

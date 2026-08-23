@@ -250,11 +250,11 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `elevation` |  |
-| `latitude` |  |
-| `locations` |  |
-| `longitude` |  |
-| `results` |  |
+| `elevation` | Elevation in meters above sea level |
+| `latitude` | Latitude of the location |
+| `locations` | Array of location objects with latitude and longitude |
+| `longitude` | Longitude of the location |
+| `results` | Array of elevation results for the requested locations |
 
 Operations: Create, List.
 
@@ -280,11 +280,11 @@ Create an instance: `lookup = client.Lookup`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `elevation` | `Float` |  |
-| `latitude` | `Float` |  |
-| `locations` | `Array` |  |
-| `longitude` | `Float` |  |
-| `results` | `Array` |  |
+| `elevation` | `Float` | Elevation in meters above sea level |
+| `latitude` | `Float` | Latitude of the location |
+| `locations` | `Array` | Array of location objects with latitude and longitude |
+| `longitude` | `Float` | Longitude of the location |
+| `results` | `Array` | Array of elevation results for the requested locations |
 
 #### Example: List
 

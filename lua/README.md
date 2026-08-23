@@ -246,11 +246,11 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `elevation` |  |
-| `latitude` |  |
-| `locations` |  |
-| `longitude` |  |
-| `results` |  |
+| `elevation` | Elevation in meters above sea level |
+| `latitude` | Latitude of the location |
+| `locations` | Array of location objects with latitude and longitude |
+| `longitude` | Longitude of the location |
+| `results` | Array of elevation results for the requested locations |
 
 Operations: Create, List.
 
@@ -276,11 +276,11 @@ Create an instance: `local lookup = client:Lookup(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `elevation` | `number` |  |
-| `latitude` | `number` |  |
-| `locations` | `table` |  |
-| `longitude` | `number` |  |
-| `results` | `table` |  |
+| `elevation` | `number` | Elevation in meters above sea level |
+| `latitude` | `number` | Latitude of the location |
+| `locations` | `table` | Array of location objects with latitude and longitude |
+| `longitude` | `number` | Longitude of the location |
+| `results` | `table` | Array of elevation results for the requested locations |
 
 #### Example: List
 

@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -305,11 +305,11 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `elevation` |  |
-| `latitude` |  |
-| `locations` |  |
-| `longitude` |  |
-| `results` |  |
+| `elevation` | Elevation in meters above sea level |
+| `latitude` | Latitude of the location |
+| `locations` | Array of location objects with latitude and longitude |
+| `longitude` | Longitude of the location |
+| `results` | Array of elevation results for the requested locations |
 
 Operations: create, list.
 
@@ -335,11 +335,11 @@ Create an instance: `const lookup = client.Lookup()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `elevation` | `number` |  |
-| `latitude` | `number` |  |
-| `locations` | `any[]` |  |
-| `longitude` | `number` |  |
-| `results` | `any[]` |  |
+| `elevation` | `number` | Elevation in meters above sea level |
+| `latitude` | `number` | Latitude of the location |
+| `locations` | `any[]` | Array of location objects with latitude and longitude |
+| `longitude` | `number` | Longitude of the location |
+| `results` | `any[]` | Array of elevation results for the requested locations |
 
 #### Example: List
 

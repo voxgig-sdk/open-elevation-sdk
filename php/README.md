@@ -260,11 +260,11 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `elevation` |  |
-| `latitude` |  |
-| `locations` |  |
-| `longitude` |  |
-| `results` |  |
+| `elevation` | Elevation in meters above sea level |
+| `latitude` | Latitude of the location |
+| `locations` | Array of location objects with latitude and longitude |
+| `longitude` | Longitude of the location |
+| `results` | Array of elevation results for the requested locations |
 
 Operations: Create, List.
 
@@ -290,11 +290,11 @@ Create an instance: `$lookup = $client->Lookup();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `elevation` | `float` |  |
-| `latitude` | `float` |  |
-| `locations` | `array` |  |
-| `longitude` | `float` |  |
-| `results` | `array` |  |
+| `elevation` | `float` | Elevation in meters above sea level |
+| `latitude` | `float` | Latitude of the location |
+| `locations` | `array` | Array of location objects with latitude and longitude |
+| `longitude` | `float` | Longitude of the location |
+| `results` | `array` | Array of elevation results for the requested locations |
 
 #### Example: List
 

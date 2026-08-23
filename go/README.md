@@ -6,7 +6,7 @@ The Golang SDK for the OpenElevation API — an entity-oriented client using sta
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Lookup(nil)` — each with the same small set of operations (`List`, `Create`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -274,11 +274,11 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"elevation"` |  |
-| `"latitude"` |  |
-| `"locations"` |  |
-| `"longitude"` |  |
-| `"results"` |  |
+| `"elevation"` | Elevation in meters above sea level |
+| `"latitude"` | Latitude of the location |
+| `"locations"` | Array of location objects with latitude and longitude |
+| `"longitude"` | Longitude of the location |
+| `"results"` | Array of elevation results for the requested locations |
 
 Operations: Create, List.
 
@@ -304,11 +304,11 @@ Create an instance: `lookup := client.Lookup(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `elevation` | `float64` |  |
-| `latitude` | `float64` |  |
-| `locations` | `[]any` |  |
-| `longitude` | `float64` |  |
-| `results` | `[]any` |  |
+| `elevation` | `float64` | Elevation in meters above sea level |
+| `latitude` | `float64` | Latitude of the location |
+| `locations` | `[]any` | Array of location objects with latitude and longitude |
+| `longitude` | `float64` | Longitude of the location |
+| `results` | `[]any` | Array of elevation results for the requested locations |
 
 #### Example: List
 

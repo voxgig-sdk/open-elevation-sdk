@@ -91,11 +91,11 @@ local lookup = client:Lookup(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `elevation` | `number` | No |  |
-| `latitude` | `number` | No |  |
-| `locations` | `table` | Yes |  |
-| `longitude` | `number` | No |  |
-| `results` | `table` | No |  |
+| `elevation` | `number` | No | Elevation in meters above sea level |
+| `latitude` | `number` | No | Latitude of the location |
+| `locations` | `table` | Yes | Array of location objects with latitude and longitude |
+| `longitude` | `number` | No | Longitude of the location |
+| `results` | `table` | No | Array of elevation results for the requested locations |
 
 ### Operations
 

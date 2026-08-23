@@ -88,11 +88,11 @@ lookup = client.Lookup()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `elevation` | `float` | No |  |
-| `latitude` | `float` | No |  |
-| `locations` | `list` | Yes |  |
-| `longitude` | `float` | No |  |
-| `results` | `list` | No |  |
+| `elevation` | `float` | No | Elevation in meters above sea level |
+| `latitude` | `float` | No | Latitude of the location |
+| `locations` | `list` | Yes | Array of location objects with latitude and longitude |
+| `longitude` | `float` | No | Longitude of the location |
+| `results` | `list` | No | Array of elevation results for the requested locations |
 
 ### Operations
 

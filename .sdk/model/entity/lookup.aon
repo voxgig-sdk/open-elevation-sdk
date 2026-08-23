@@ -8,26 +8,31 @@ main: kit: entity: lookup: {
     {
       name: "elevation"
       req: false
+      short: "Elevation in meters above sea level"
       type: "`$NUMBER`"
     }
     {
       name: "latitude"
       req: false
+      short: "Latitude of the location"
       type: "`$NUMBER`"
     }
     {
       name: "locations"
       req: true
+      short: "Array of location objects with latitude and longitude"
       type: "`$ARRAY`"
     }
     {
       name: "longitude"
       req: false
+      short: "Longitude of the location"
       type: "`$NUMBER`"
     }
     {
       name: "results"
       req: false
+      short: "Array of elevation results for the requested locations"
       type: "`$ARRAY`"
     }
   ]

@@ -94,11 +94,11 @@ lookup = client.Lookup
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `elevation` | `Float` | No |  |
-| `latitude` | `Float` | No |  |
-| `locations` | `Array` | Yes |  |
-| `longitude` | `Float` | No |  |
-| `results` | `Array` | No |  |
+| `elevation` | `Float` | No | Elevation in meters above sea level |
+| `latitude` | `Float` | No | Latitude of the location |
+| `locations` | `Array` | Yes | Array of location objects with latitude and longitude |
+| `longitude` | `Float` | No | Longitude of the location |
+| `results` | `Array` | No | Array of elevation results for the requested locations |
 
 ### Operations
 

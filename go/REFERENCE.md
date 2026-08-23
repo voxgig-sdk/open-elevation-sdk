@@ -99,11 +99,11 @@ fmt.Println(lookup.GetName()) // "lookup"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `elevation` | `float64` | No |  |
-| `latitude` | `float64` | No |  |
-| `locations` | `[]any` | Yes |  |
-| `longitude` | `float64` | No |  |
-| `results` | `[]any` | No |  |
+| `elevation` | `float64` | No | Elevation in meters above sea level |
+| `latitude` | `float64` | No | Latitude of the location |
+| `locations` | `[]any` | Yes | Array of location objects with latitude and longitude |
+| `longitude` | `float64` | No | Longitude of the location |
+| `results` | `[]any` | No | Array of elevation results for the requested locations |
 
 ### Operations
 

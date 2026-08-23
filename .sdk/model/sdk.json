@@ -36,30 +36,35 @@
               "active": true,
               "name": "elevation",
               "req": false,
+              "short": "Elevation in meters above sea level",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "latitude",
               "req": false,
+              "short": "Latitude of the location",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "locations",
               "req": true,
+              "short": "Array of location objects with latitude and longitude",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "longitude",
               "req": false,
+              "short": "Longitude of the location",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "results",
               "req": false,
+              "short": "Array of elevation results for the requested locations",
               "type": "`$ARRAY`"
             }
           ],
