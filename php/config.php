@@ -42,6 +42,7 @@ class OpenElevationConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
