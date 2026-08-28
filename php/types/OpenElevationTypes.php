@@ -25,11 +25,7 @@ class Lookup
 /** Request payload for Lookup#list. */
 class LookupListMatch
 {
-    public ?float $elevation = null;
-    public ?float $latitude = null;
-    public ?array $locations = null;
-    public ?float $longitude = null;
-    public ?array $results = null;
+    public string $location;
 }
 
 /** Request payload for Lookup#create. */

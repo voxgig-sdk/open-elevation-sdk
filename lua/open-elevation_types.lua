@@ -14,11 +14,7 @@
 ---@field results? table
 
 ---@class LookupListMatch
----@field elevation? number
----@field latitude? number
----@field locations? table
----@field longitude? number
----@field results? table
+---@field location string
 
 ---@class LookupCreateData
 ---@field elevation? number
