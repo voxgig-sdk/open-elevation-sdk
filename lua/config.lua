@@ -35,11 +35,13 @@ local function make_config()
       ["lookup"] = {
         ["fields"] = {
           {
+            ["format"] = "double",
             ["name"] = "elevation",
             ["short"] = "Elevation in meters above sea level",
             ["type"] = "`$NUMBER`",
           },
           {
+            ["format"] = "double",
             ["name"] = "latitude",
             ["short"] = "Latitude of the location",
             ["type"] = "`$NUMBER`",
@@ -51,6 +53,7 @@ local function make_config()
             ["type"] = "`$ARRAY`",
           },
           {
+            ["format"] = "double",
             ["name"] = "longitude",
             ["short"] = "Longitude of the location",
             ["type"] = "`$NUMBER`",
@@ -72,15 +75,26 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/api/v1/lookup",
-                ["parts"] = {
-                  "api",
-                  "v1",
-                  "lookup",
+                ["segments"] = {
+                  {
+                    ["lit"] = "api",
+                  },
+                  {
+                    ["lit"] = "v1",
+                  },
+                  {
+                    ["lit"] = "lookup",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "api",
+                  "v1",
+                  "lookup",
                 },
               },
             },
@@ -105,10 +119,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/v1/lookup",
-                ["parts"] = {
-                  "api",
-                  "v1",
-                  "lookup",
+                ["segments"] = {
+                  {
+                    ["lit"] = "api",
+                  },
+                  {
+                    ["lit"] = "v1",
+                  },
+                  {
+                    ["lit"] = "lookup",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -118,6 +138,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.results`",
+                },
+                ["parts"] = {
+                  "api",
+                  "v1",
+                  "lookup",
                 },
               },
             },

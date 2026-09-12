@@ -94,14 +94,22 @@ func lookupDirectSetup(mockres any) *lookupDirectSetupResult {
 	env := envOverride(map[string]any{
 		"OPEN_ELEVATION_TEST_LOOKUP_ENTID": map[string]any{},
 		"OPEN_ELEVATION_TEST_LIVE":    "FALSE",
-		"OPEN_ELEVATION_APIKEY":       "NONE",
+		"OPEN_ELEVATION_APIKEY":       "",
 	})
 
 	live := env["OPEN_ELEVATION_TEST_LIVE"] == "TRUE"
 
 	if live {
-		mergedOpts := map[string]any{
+		// sdk-test-control.json's test.client.options seeds the live
+		// client; the generated fields below overwrite anything they name.
+		mergedOpts := map[string]any{}
+		for k, v := range liveClientOptions() {
+			mergedOpts[k] = v
+		}
+		for k, v := range map[string]any{
 			"apikey": env["OPEN_ELEVATION_APIKEY"],
+		} {
+			mergedOpts[k] = v
 		}
 		client := sdk.NewOpenElevationSDK(mergedOpts)
 

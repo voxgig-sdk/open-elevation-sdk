@@ -6,12 +6,14 @@ main: kit: entity: lookup: {
 
   fields: [
     {
+      format: "double"
       name: "elevation"
       req: false
       short: "Elevation in meters above sea level"
       type: "`$NUMBER`"
     }
     {
+      format: "double"
       name: "latitude"
       req: false
       short: "Latitude of the location"
@@ -24,6 +26,7 @@ main: kit: entity: lookup: {
       type: "`$ARRAY`"
     }
     {
+      format: "double"
       name: "longitude"
       req: false
       short: "Longitude of the location"
@@ -45,10 +48,16 @@ main: kit: entity: lookup: {
         {
           method: "POST"
           orig: "/api/v1/lookup"
-          parts: [
-            "api"
-            "v1"
-            "lookup"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "lookup"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -75,10 +84,16 @@ main: kit: entity: lookup: {
           }
           method: "GET"
           orig: "/api/v1/lookup"
-          parts: [
-            "api"
-            "v1"
-            "lookup"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "lookup"
+            }
           ]
           select: {
             exist: [
