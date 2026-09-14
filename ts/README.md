@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { OpenElevationSDK } from '@voxgig-sdk/open-elevation'
+import { OpenElevationSDK } from '@voxgig-sdk/open-elevation-sdk'
 
 const client = new OpenElevationSDK({
   apikey: process.env.OPEN_ELEVATION_APIKEY,
@@ -438,7 +438,7 @@ open-elevation/
 Import the SDK from the package root:
 
 ```ts
-import { OpenElevationSDK } from '@voxgig-sdk/open-elevation'
+import { OpenElevationSDK } from '@voxgig-sdk/open-elevation-sdk'
 ```
 
 ### Entity state

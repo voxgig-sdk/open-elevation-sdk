@@ -882,7 +882,7 @@
             "registry": {
               "active": false,
               "name": "npm",
-              "package": "",
+              "package": "@voxgig-sdk/open-elevation-sdk",
               "state": "pending",
               "url": "https://registry.npmjs.org",
               "vault": {

@@ -105,7 +105,7 @@ local results, err = client:Lookup():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/open-elevation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/open-elevation-sdk/releases) |
+| TypeScript | `@voxgig-sdk/open-elevation-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/open-elevation-sdk/releases) |
 | Python | `voxgig-sdk-open-elevation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/open-elevation-sdk/releases) |
 | PHP | `voxgig-sdk/open-elevation` | publish pending — [install from git tag](https://github.com/voxgig-sdk/open-elevation-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/open-elevation-sdk/go` | `go get github.com/voxgig-sdk/open-elevation-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Lookup():list()
 ### TypeScript
 
 ```ts
-import { OpenElevationSDK } from '@voxgig-sdk/open-elevation'
+import { OpenElevationSDK } from '@voxgig-sdk/open-elevation-sdk'
 
 const client = new OpenElevationSDK({
   apikey: process.env.OPEN_ELEVATION_APIKEY,
