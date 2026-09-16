@@ -4,7 +4,10 @@ declare(strict_types=1);
 // OpenElevation SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class OpenElevationFeatures
@@ -14,8 +17,14 @@ class OpenElevationFeatures
         switch ($name) {
             case "base":
                 return new OpenElevationBaseFeature();
+            case "ratelimit":
+                return new OpenElevationRatelimitFeature();
+            case "retry":
+                return new OpenElevationRetryFeature();
             case "test":
                 return new OpenElevationTestFeature();
+            case "timeout":
+                return new OpenElevationTimeoutFeature();
             default:
                 return new OpenElevationBaseFeature();
         }
@@ -31,7 +40,10 @@ class OpenElevationFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

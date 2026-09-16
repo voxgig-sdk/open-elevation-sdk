@@ -37,5 +37,321 @@
         "results": []
       }
     }
+  },
+  "requests": {
+    "POST /api/v1/lookup": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "postElevation",
+        "parameters": [],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "locations": [
+                  {
+                    "latitude": 10,
+                    "longitude": 10
+                  },
+                  {
+                    "latitude": 20,
+                    "longitude": 20
+                  },
+                  {
+                    "latitude": 41.161758,
+                    "longitude": -8.583933
+                  }
+                ]
+              },
+              "schema": {
+                "properties": {
+                  "locations": {
+                    "description": "Array of location objects with latitude and longitude",
+                    "items": {
+                      "properties": {
+                        "latitude": {
+                          "description": "Latitude in decimal degrees",
+                          "format": "double",
+                          "maximum": 90,
+                          "minimum": -90,
+                          "type": "number"
+                        },
+                        "longitude": {
+                          "description": "Longitude in decimal degrees",
+                          "format": "double",
+                          "maximum": 180,
+                          "minimum": -180,
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "latitude",
+                        "longitude"
+                      ],
+                      "type": "object"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "locations"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "results": [
+                    {
+                      "elevation": 515,
+                      "latitude": 10,
+                      "longitude": 10
+                    },
+                    {
+                      "elevation": 590,
+                      "latitude": 20,
+                      "longitude": 20
+                    },
+                    {
+                      "elevation": 117,
+                      "latitude": 41.161758,
+                      "longitude": -8.583933
+                    }
+                  ]
+                },
+                "schema": {
+                  "properties": {
+                    "results": {
+                      "description": "Array of elevation results for the requested locations",
+                      "items": {
+                        "properties": {
+                          "elevation": {
+                            "description": "Elevation in meters above sea level",
+                            "format": "double",
+                            "type": "number"
+                          },
+                          "latitude": {
+                            "description": "Latitude of the location",
+                            "format": "double",
+                            "type": "number"
+                          },
+                          "longitude": {
+                            "description": "Longitude of the location",
+                            "format": "double",
+                            "type": "number"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with elevation data"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Error message describing what went wrong",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - invalid JSON or parameters"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Error message describing what went wrong",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Error message describing what went wrong",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal server error"
+          }
+        },
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "description": "API key required for paid plans (Basic, Professional, Enterprise). Free tier does not require authentication but is limited to 1,000 requests/month.",
+            "in": "header",
+            "name": "X-API-Key",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /api/v1/lookup": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getElevation",
+        "parameters": [
+          {
+            "description": "Pipe-separated list of latitude,longitude pairs (e.g., 10,10|20,20|41.161758,-8.583933)",
+            "example": "10,10|20,20|41.161758,-8.583933",
+            "in": "query",
+            "name": "locations",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "results": [
+                    {
+                      "elevation": 515,
+                      "latitude": 10,
+                      "longitude": 10
+                    },
+                    {
+                      "elevation": 590,
+                      "latitude": 20,
+                      "longitude": 20
+                    },
+                    {
+                      "elevation": 117,
+                      "latitude": 41.161758,
+                      "longitude": -8.583933
+                    }
+                  ]
+                },
+                "schema": {
+                  "properties": {
+                    "results": {
+                      "description": "Array of elevation results for the requested locations",
+                      "items": {
+                        "properties": {
+                          "elevation": {
+                            "description": "Elevation in meters above sea level",
+                            "format": "double",
+                            "type": "number"
+                          },
+                          "latitude": {
+                            "description": "Latitude of the location",
+                            "format": "double",
+                            "type": "number"
+                          },
+                          "longitude": {
+                            "description": "Longitude of the location",
+                            "format": "double",
+                            "type": "number"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with elevation data"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Error message describing what went wrong",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - invalid parameters"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Error message describing what went wrong",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Error message describing what went wrong",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal server error"
+          }
+        },
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "description": "API key required for paid plans (Basic, Professional, Enterprise). Free tier does not require authentication but is limited to 1,000 requests/month.",
+            "in": "header",
+            "name": "X-API-Key",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

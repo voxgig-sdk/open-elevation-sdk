@@ -1,12 +1,18 @@
 # OpenElevation SDK feature factory
 
 from openelevation_sdk.feature.base_feature import OpenElevationBaseFeature
+from openelevation_sdk.feature.ratelimit_feature import OpenElevationRatelimitFeature
+from openelevation_sdk.feature.retry_feature import OpenElevationRetryFeature
 from openelevation_sdk.feature.test_feature import OpenElevationTestFeature
+from openelevation_sdk.feature.timeout_feature import OpenElevationTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: OpenElevationBaseFeature(),
+    "ratelimit": lambda: OpenElevationRatelimitFeature(),
+    "retry": lambda: OpenElevationRetryFeature(),
     "test": lambda: OpenElevationTestFeature(),
+    "timeout": lambda: OpenElevationTimeoutFeature(),
 }
 
 
