@@ -89,6 +89,7 @@ module OpenElevationConfig
         "base" => "https://api.open-elevation.com",
         "auth" => {
           "prefix" => "",
+          "name" => "X-API-Key",
         },
         "headers" => {
           "content-type" => "application/json",
