@@ -45,7 +45,7 @@ local lookups, err = client:Lookup():list()
 if err then error(err) end
 
 for _, item in ipairs(lookups) do
-  print(item["elevation"])
+  print(item)
 end
 ```
 

@@ -1,7 +1,7 @@
 // Typed models for the OpenElevation SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,11 +14,6 @@ import (
 
 // Lookup is the typed data model for the lookup entity.
 type Lookup struct {
-	Elevation *float64 `json:"elevation,omitempty"`
-	Latitude *float64 `json:"latitude,omitempty"`
-	Locations []any `json:"locations"`
-	Longitude *float64 `json:"longitude,omitempty"`
-	Results *[]any `json:"results,omitempty"`
 }
 
 // LookupListMatch is the typed request payload for Lookup.ListTyped.

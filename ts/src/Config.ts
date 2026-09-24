@@ -16,12 +16,6 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS: Record<string, any[]> = {
   
 }
@@ -32,7 +26,6 @@ class Config {
   makeFeature(this: any, fn: string) {
     const fc = FEATURE_CLASS[fn]
     const fi = new fc()
-    // TODO: errors etc
     return fi
   }
 
@@ -143,33 +136,38 @@ class Config {
     "lookup": {
       "fields": [
         {
-          "format": "double",
           "name": "elevation",
+          "title": "Elevation",
+          "type": "`$NUMBER`",
           "short": "Elevation in meters above sea level",
-          "type": "`$NUMBER`"
+          "format": "double"
         },
         {
-          "format": "double",
           "name": "latitude",
+          "title": "Latitude",
+          "type": "`$NUMBER`",
           "short": "Latitude of the location",
-          "type": "`$NUMBER`"
+          "format": "double"
         },
         {
           "name": "locations",
+          "title": "Locations",
+          "type": "`$ARRAY`",
           "req": true,
-          "short": "Array of location objects with latitude and longitude",
-          "type": "`$ARRAY`"
+          "short": "Array of location objects with latitude and longitude"
         },
         {
-          "format": "double",
           "name": "longitude",
+          "title": "Longitude",
+          "type": "`$NUMBER`",
           "short": "Longitude of the location",
-          "type": "`$NUMBER`"
+          "format": "double"
         },
         {
           "name": "results",
-          "short": "Array of elevation results for the requested locations",
-          "type": "`$ARRAY`"
+          "title": "Results",
+          "type": "`$ARRAY`",
+          "short": "Array of elevation results for the requested locations"
         }
       ],
       "name": "lookup",
@@ -179,7 +177,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/api/v1/lookup",
@@ -194,16 +191,18 @@ class Config {
                   "lit": "lookup"
                 }
               ],
-              "select": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "api",
                 "v1",
                 "lookup"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {},
+              "select": {}
             }
           ]
         },
@@ -212,18 +211,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "example": "10,10|20,20|41.161758,-8.583933",
-                    "kind": "query",
-                    "name": "location",
-                    "orig": "location",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/api/v1/lookup",
@@ -238,20 +225,33 @@ class Config {
                   "lit": "lookup"
                 }
               ],
-              "select": {
-                "exist": [
-                  "location"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.results`"
-              },
               "parts": [
                 "api",
                 "v1",
                 "lookup"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.results`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "location",
+                    "orig": "location",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "reqd": true,
+                    "example": "10,10|20,20|41.161758,-8.583933"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "location"
+                ]
+              }
             }
           ]
         }

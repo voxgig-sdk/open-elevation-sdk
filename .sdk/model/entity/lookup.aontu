@@ -1,0 +1,129 @@
+# Entity: lookup
+
+main: kit: entity: lookup: {
+
+  alias: field: {}
+
+  fields: {
+    elevation: {
+      fo: "double"
+      h: "Elevation"
+      n: "elevation"
+      r: false
+      sh: "Elevation in meters above sea level"
+      t: "`$NUMBER`"
+    }
+    latitude: {
+      fo: "double"
+      h: "Latitude"
+      n: "latitude"
+      r: false
+      sh: "Latitude of the location"
+      t: "`$NUMBER`"
+    }
+    locations: {
+      h: "Locations"
+      n: "locations"
+      r: true
+      sh: "Array of location objects with latitude and longitude"
+      t: "`$ARRAY`"
+    }
+    longitude: {
+      fo: "double"
+      h: "Longitude"
+      n: "longitude"
+      r: false
+      sh: "Longitude of the location"
+      t: "`$NUMBER`"
+    }
+    results: {
+      h: "Results"
+      n: "results"
+      r: false
+      sh: "Array of elevation results for the requested locations"
+      t: "`$ARRAY`"
+    }
+  }
+
+  name: "lookup"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /api/v1/lookup"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/api/v1/lookup"
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "lookup"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /api/v1/lookup"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "10,10|20,20|41.161758,-8.583933"
+                k: "query"
+                n: "location"
+                or: "location"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/v1/lookup"
+          q: {
+            exist: [
+              "location"
+            ]
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "lookup"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.results`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

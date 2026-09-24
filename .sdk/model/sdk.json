@@ -24,52 +24,123 @@
         "repr": "auto"
       },
       "contributor": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "published": false,
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "lookup": {
           "active": true,
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "format": "double",
-              "name": "elevation",
-              "req": false,
-              "short": "Elevation in meters above sea level",
-              "type": "`$NUMBER`"
+          "fields": {
+            "elevation": {
+              "a": true,
+              "fo": "double",
+              "h": "Elevation",
+              "n": "elevation",
+              "r": false,
+              "sh": "Elevation in meters above sea level",
+              "t": "`$NUMBER`"
             },
-            {
-              "active": true,
-              "format": "double",
-              "name": "latitude",
-              "req": false,
-              "short": "Latitude of the location",
-              "type": "`$NUMBER`"
+            "latitude": {
+              "a": true,
+              "fo": "double",
+              "h": "Latitude",
+              "n": "latitude",
+              "r": false,
+              "sh": "Latitude of the location",
+              "t": "`$NUMBER`"
             },
-            {
-              "active": true,
-              "name": "locations",
-              "req": true,
-              "short": "Array of location objects with latitude and longitude",
-              "type": "`$ARRAY`"
+            "locations": {
+              "a": true,
+              "h": "Locations",
+              "n": "locations",
+              "r": true,
+              "sh": "Array of location objects with latitude and longitude",
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "format": "double",
-              "name": "longitude",
-              "req": false,
-              "short": "Longitude of the location",
-              "type": "`$NUMBER`"
+            "longitude": {
+              "a": true,
+              "fo": "double",
+              "h": "Longitude",
+              "n": "longitude",
+              "r": false,
+              "sh": "Longitude of the location",
+              "t": "`$NUMBER`"
             },
-            {
-              "active": true,
-              "name": "results",
-              "req": false,
-              "short": "Array of elevation results for the requested locations",
-              "type": "`$ARRAY`"
+            "results": {
+              "a": true,
+              "h": "Results",
+              "n": "results",
+              "r": false,
+              "sh": "Array of elevation results for the requested locations",
+              "t": "`$ARRAY`"
             }
-          ],
+          },
           "name": "lookup",
           "op": {
             "create": {
@@ -77,18 +148,19 @@
               "name": "create",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "POST /api/v1/lookup",
-                    "json": "{\"operationId\":\"postElevation\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"example\":{\"locations\":[{\"latitude\":10,\"longitude\":10},{\"latitude\":20,\"longitude\":20},{\"latitude\":41.161758,\"longitude\":-8.583933}]},\"schema\":{\"properties\":{\"locations\":{\"description\":\"Array of location objects with latitude and longitude\",\"items\":{\"properties\":{\"latitude\":{\"description\":\"Latitude in decimal degrees\",\"format\":\"double\",\"maximum\":90,\"minimum\":-90,\"type\":\"number\"},\"longitude\":{\"description\":\"Longitude in decimal degrees\",\"format\":\"double\",\"maximum\":180,\"minimum\":-180,\"type\":\"number\"}},\"required\":[\"latitude\",\"longitude\"],\"type\":\"object\"},\"minItems\":1,\"type\":\"array\"}},\"required\":[\"locations\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":{\"results\":[{\"elevation\":515,\"latitude\":10,\"longitude\":10},{\"elevation\":590,\"latitude\":20,\"longitude\":20},{\"elevation\":117,\"latitude\":41.161758,\"longitude\":-8.583933}]},\"schema\":{\"properties\":{\"results\":{\"description\":\"Array of elevation results for the requested locations\",\"items\":{\"properties\":{\"elevation\":{\"description\":\"Elevation in meters above sea level\",\"format\":\"double\",\"type\":\"number\"},\"latitude\":{\"description\":\"Latitude of the location\",\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"description\":\"Longitude of the location\",\"format\":\"double\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response with elevation data\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Bad request - invalid JSON or parameters\"},\"429\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Rate limit exceeded\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Internal server error\"}},\"securitySchemes\":{\"ApiKeyAuth\":{\"description\":\"API key required for paid plans (Basic, Professional, Enterprise). Free tier does not require authentication but is limited to 1,000 requests/month.\",\"in\":\"header\",\"name\":\"X-API-Key\",\"type\":\"apiKey\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "POST",
-                  "orig": "/api/v1/lookup",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/api/v1/lookup",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "api"
                     },
@@ -99,8 +171,7 @@
                       "lit": "lookup"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -112,30 +183,35 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /api/v1/lookup",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "query": [
                       {
-                        "active": true,
-                        "example": "10,10|20,20|41.161758,-8.583933",
-                        "kind": "query",
-                        "name": "location",
-                        "orig": "location",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "10,10|20,20|41.161758,-8.583933",
+                        "k": "query",
+                        "n": "location",
+                        "or": "location",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /api/v1/lookup",
-                    "json": "{\"operationId\":\"getElevation\",\"parameters\":[{\"description\":\"Pipe-separated list of latitude,longitude pairs (e.g., 10,10|20,20|41.161758,-8.583933)\",\"example\":\"10,10|20,20|41.161758,-8.583933\",\"in\":\"query\",\"name\":\"locations\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":{\"results\":[{\"elevation\":515,\"latitude\":10,\"longitude\":10},{\"elevation\":590,\"latitude\":20,\"longitude\":20},{\"elevation\":117,\"latitude\":41.161758,\"longitude\":-8.583933}]},\"schema\":{\"properties\":{\"results\":{\"description\":\"Array of elevation results for the requested locations\",\"items\":{\"properties\":{\"elevation\":{\"description\":\"Elevation in meters above sea level\",\"format\":\"double\",\"type\":\"number\"},\"latitude\":{\"description\":\"Latitude of the location\",\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"description\":\"Longitude of the location\",\"format\":\"double\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"Successful response with elevation data\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Bad request - invalid parameters\"},\"429\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Rate limit exceeded\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Internal server error\"}},\"securitySchemes\":{\"ApiKeyAuth\":{\"description\":\"API key required for paid plans (Basic, Professional, Enterprise). Free tier does not require authentication but is limited to 1,000 requests/month.\",\"in\":\"header\",\"name\":\"X-API-Key\",\"type\":\"apiKey\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/api/v1/lookup",
+                  "q": {
+                    "exist": [
+                      "location"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/api/v1/lookup",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "api"
                     },
@@ -146,12 +222,7 @@
                       "lit": "lookup"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "location"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.results`"
                   }
@@ -580,24 +651,24 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "lookup_ref01"
               },
-              "match": {},
-              "op": "create",
-              "spec": [],
-              "valid": []
+              "m": {},
+              "o": "create",
+              "s": [],
+              "v": []
             },
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {

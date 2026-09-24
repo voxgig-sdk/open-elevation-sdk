@@ -94,33 +94,38 @@ func MakeConfig() map[string]any {
 			"lookup": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"format": "double",
 						"name": "elevation",
-						"short": "Elevation in meters above sea level",
+						"title": "Elevation",
 						"type": "`$NUMBER`",
+						"short": "Elevation in meters above sea level",
+						"format": "double",
 					},
 					map[string]any{
-						"format": "double",
 						"name": "latitude",
-						"short": "Latitude of the location",
+						"title": "Latitude",
 						"type": "`$NUMBER`",
+						"short": "Latitude of the location",
+						"format": "double",
 					},
 					map[string]any{
 						"name": "locations",
+						"title": "Locations",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "Array of location objects with latitude and longitude",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
-						"format": "double",
 						"name": "longitude",
-						"short": "Longitude of the location",
+						"title": "Longitude",
 						"type": "`$NUMBER`",
+						"short": "Longitude of the location",
+						"format": "double",
 					},
 					map[string]any{
 						"name": "results",
-						"short": "Array of elevation results for the requested locations",
+						"title": "Results",
 						"type": "`$ARRAY`",
+						"short": "Array of elevation results for the requested locations",
 					},
 				},
 				"name": "lookup",
@@ -130,7 +135,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/api/v1/lookup",
@@ -145,16 +149,18 @@ func MakeConfig() map[string]any {
 										"lit": "lookup",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"api",
 									"v1",
 									"lookup",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -163,18 +169,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "10,10|20,20|41.161758,-8.583933",
-											"kind": "query",
-											"name": "location",
-											"orig": "location",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/v1/lookup",
@@ -189,19 +183,32 @@ func MakeConfig() map[string]any {
 										"lit": "lookup",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"location",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.results`",
-								},
 								"parts": []any{
 									"api",
 									"v1",
 									"lookup",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.results`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "location",
+											"orig": "location",
+											"type": "`$STRING`",
+											"kind": "query",
+											"reqd": true,
+											"example": "10,10|20,20|41.161758,-8.583933",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"location",
+									},
 								},
 							},
 						},

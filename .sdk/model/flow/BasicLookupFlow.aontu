@@ -1,0 +1,30 @@
+# BasicLookupFlow
+
+main: kit: flow: BasicLookupFlow:
+{
+  entity: "lookup",
+  kind: "basic",
+  name: "BasicLookupFlow",
+  step: [
+    {
+      i: {
+        ref: "lookup_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "lookup_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicLookupFlow"
+}

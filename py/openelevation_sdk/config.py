@@ -119,33 +119,38 @@ def make_config():
       "lookup": {
         "fields": [
           {
-            "format": "double",
             "name": "elevation",
-            "short": "Elevation in meters above sea level",
+            "title": "Elevation",
             "type": "`$NUMBER`",
+            "short": "Elevation in meters above sea level",
+            "format": "double",
           },
           {
-            "format": "double",
             "name": "latitude",
-            "short": "Latitude of the location",
+            "title": "Latitude",
             "type": "`$NUMBER`",
+            "short": "Latitude of the location",
+            "format": "double",
           },
           {
             "name": "locations",
+            "title": "Locations",
+            "type": "`$ARRAY`",
             "req": True,
             "short": "Array of location objects with latitude and longitude",
-            "type": "`$ARRAY`",
           },
           {
-            "format": "double",
             "name": "longitude",
-            "short": "Longitude of the location",
+            "title": "Longitude",
             "type": "`$NUMBER`",
+            "short": "Longitude of the location",
+            "format": "double",
           },
           {
             "name": "results",
-            "short": "Array of elevation results for the requested locations",
+            "title": "Results",
             "type": "`$ARRAY`",
+            "short": "Array of elevation results for the requested locations",
           },
         ],
         "name": "lookup",
@@ -155,7 +160,6 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "POST",
                 "orig": "/api/v1/lookup",
@@ -170,16 +174,18 @@ def make_config():
                     "lit": "lookup",
                   },
                 ],
-                "select": {},
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "api",
                   "v1",
                   "lookup",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -188,18 +194,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "query": [
-                    {
-                      "example": "10,10|20,20|41.161758,-8.583933",
-                      "kind": "query",
-                      "name": "location",
-                      "orig": "location",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/v1/lookup",
@@ -214,20 +208,33 @@ def make_config():
                     "lit": "lookup",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "location",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.results`",
-                },
                 "parts": [
                   "api",
                   "v1",
                   "lookup",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.results`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "location",
+                      "orig": "location",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                      "reqd": True,
+                      "example": "10,10|20,20|41.161758,-8.583933",
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "location",
+                  ],
+                },
               },
             ],
           },
