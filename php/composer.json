@@ -1,5 +1,5 @@
 {
-  "name": "voxgig-sdk/open-elevation",
+  "name": "voxgig-sdk/open-elevation-sdk",
   "description": "Unofficial generated PHP SDK for the Open-Elevation public API. Not affiliated with or endorsed by the upstream API provider.",
   "type": "library",
   "keywords": ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "open-elevation"],
