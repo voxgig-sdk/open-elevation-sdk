@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 OpenElevationUtility.registrar = ->(u) {
   u.clean = OpenElevationUtilities::Clean
+  u.clean_add = OpenElevationUtilities::CleanAdd
+  u.clean_explain = OpenElevationUtilities::CleanExplain
   u.done = OpenElevationUtilities::Done
   u.make_error = OpenElevationUtilities::MakeError
   u.feature_add = OpenElevationUtilities::FeatureAdd

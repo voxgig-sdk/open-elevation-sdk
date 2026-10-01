@@ -196,7 +196,7 @@
                         "ex": "10,10|20,20|41.161758,-8.583933",
                         "k": "query",
                         "n": "location",
-                        "or": "location",
+                        "or": "locations",
                         "r": true,
                         "t": "`$STRING`"
                       }
@@ -728,7 +728,12 @@
         },
         "base": "http://localhost:8000",
         "clean": {
-          "keys": "key,token,id"
+          "active": true,
+          "hint": "0",
+          "keys": "key,secret,token,password,passwd,authorization,cookie,credential,signature",
+          "mask": "[redacted]",
+          "min": "4",
+          "values": ""
         },
         "entity": {
           "`$CHILD`": {

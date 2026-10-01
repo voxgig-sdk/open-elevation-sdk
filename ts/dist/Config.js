@@ -213,7 +213,7 @@ class Config {
                                 "query": [
                                     {
                                         "name": "location",
-                                        "orig": "location",
+                                        "orig": "locations",
                                         "type": "`$STRING`",
                                         "kind": "query",
                                         "reqd": true,

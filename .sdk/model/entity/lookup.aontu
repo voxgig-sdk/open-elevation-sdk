@@ -91,7 +91,7 @@ main: kit: entity: lookup: {
                 ex: "10,10|20,20|41.161758,-8.583933"
                 k: "query"
                 n: "location"
-                or: "location"
+                or: "locations"
                 r: true
                 t: "`$STRING`"
               }

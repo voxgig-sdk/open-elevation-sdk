@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 OpenElevationUtility::setRegistrar(function (OpenElevationUtility $u): void {
     $u->clean = [OpenElevationClean::class, 'call'];
+    $u->clean_add = [OpenElevationClean::class, 'add'];
+    $u->clean_explain = [OpenElevationDone::class, 'clean_explain'];
     $u->done = [OpenElevationDone::class, 'call'];
     $u->make_error = [OpenElevationMakeError::class, 'call'];
     $u->feature_add = [OpenElevationFeatureAdd::class, 'call'];
