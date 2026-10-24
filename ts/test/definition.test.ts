@@ -17,7 +17,12 @@ const PLAN: any[] = [
     "args": [],
     "select": {},
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [],
+    "queryArgs": [],
     "auth": [],
     "status": 200,
     "sample": {
@@ -52,8 +57,18 @@ const PLAN: any[] = [
       "location": "v1"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "locations"
+    ],
+    "queryArgs": [
+      {
+        "name": "location",
+        "wire": "locations"
+      }
     ],
     "auth": [],
     "status": 200,

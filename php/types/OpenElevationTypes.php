@@ -31,10 +31,6 @@ class LookupListMatch
 /** Request payload for Lookup#create. */
 class LookupCreateData
 {
-    public ?float $elevation = null;
-    public ?float $latitude = null;
     public array $locations;
-    public ?float $longitude = null;
-    public ?array $results = null;
 }
 

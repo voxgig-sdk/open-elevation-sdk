@@ -44,26 +44,10 @@ LookupListMatch = Struct.new(
 
 # Request payload for Lookup#create.
 #
-# @!attribute [rw] elevation
-#   @return [Float, nil]
-#
-# @!attribute [rw] latitude
-#   @return [Float, nil]
-#
 # @!attribute [rw] locations
 #   @return [Array]
-#
-# @!attribute [rw] longitude
-#   @return [Float, nil]
-#
-# @!attribute [rw] results
-#   @return [Array, nil]
 LookupCreateData = Struct.new(
-  :elevation,
-  :latitude,
   :locations,
-  :longitude,
-  :results,
   keyword_init: true
 )
 

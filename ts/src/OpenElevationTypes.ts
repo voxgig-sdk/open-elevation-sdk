@@ -18,10 +18,6 @@ export interface LookupListMatch {
 }
 
 export interface LookupCreateData {
-  elevation?: number
-  latitude?: number
   locations: any[]
-  longitude?: number
-  results?: any[]
 }
 

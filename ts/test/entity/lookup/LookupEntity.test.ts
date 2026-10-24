@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { OpenElevationSDK, BaseFeature, stdutil } from '../../..'
+import { OpenElevationSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('LookupEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('lookup hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of OpenElevationSDK.test(offline).Lookup().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of OpenElevationSDK.test(offline).Lookup()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = OpenElevationSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.Lookup().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of OpenElevationSDK.test().Lookup().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new OpenElevationSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.Lookup().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.Lookup().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = OpenElevationSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Lookup().list({"location":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.OPEN_ELEVATION_TEST_LIVE
@@ -51,7 +109,7 @@ describe('LookupEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"elevation":{"a":true,"fo":"double","h":"Elevation","n":"elevation","r":false,"sh":"Elevation in meters above sea level","t":"`$NUMBER`","key$":"elevation","index$":0},"latitude":{"a":true,"fo":"double","h":"Latitude","n":"latitude","r":false,"sh":"Latitude of the location","t":"`$NUMBER`","key$":"latitude","index$":1},"locations":{"a":true,"h":"Locations","n":"locations","r":true,"sh":"Array of location objects with latitude and longitude","t":"`$ARRAY`","key$":"locations","index$":2},"longitude":{"a":true,"fo":"double","h":"Longitude","n":"longitude","r":false,"sh":"Longitude of the location","t":"`$NUMBER`","key$":"longitude","index$":3},"results":{"a":true,"h":"Results","n":"results","r":false,"sh":"Array of elevation results for the requested locations","t":"`$ARRAY`","key$":"results","index$":4}},"name":"lookup","op":{"create":{"input":"data","name":"create","points":[{"a":true,"co":{"id":"POST /api/v1/lookup","source":"openapi3","version":2},"g":{},"k":"http","m":"POST","o":"/api/v1/lookup","q":{},"r":{},"s":[{"lit":"api"},{"lit":"v1"},{"lit":"lookup"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"},"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /api/v1/lookup","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"10,10|20,20|41.161758,-8.583933","k":"query","n":"location","or":"locations","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/api/v1/lookup","q":{"exist":["location"]},"r":{},"s":[{"lit":"api"},{"lit":"v1"},{"lit":"lookup"}],"t":{"req":"`reqdata`","res":"`body.results`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"lookup","name__orig":"lookup","Name":"Lookup","name_":"lookup","name-":"lookup","NAME":"LOOKUP","index$":0}, {"active":true,"entity":"lookup","key$":"BasicLookupFlow","kind":"basic","name":"BasicLookupFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"lookup_ref01"},"m":{},"o":"create","s":[],"v":[],"index$":0},{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"lookup_ref01"}}],"index$":1}]}, 'Lookup', {"POST /api/v1/lookup":{"protocol":"http","requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","required":["locations"],"properties":{"locations":{"type":"array","description":"Array of location objects with latitude and longitude","items":{"type":"object","required":["latitude","longitude"],"properties":{"latitude":{"type":"number","format":"double","description":"Latitude in decimal degrees","minimum":-90,"maximum":90},"longitude":{"type":"number","format":"double","description":"Longitude in decimal degrees","minimum":-180,"maximum":180}},"x-ref":"#/components/schemas/Location"},"minItems":1,"key$":"locations"}},"x-ref":"#/components/schemas/ElevationRequest","index$":1},"example":{"locations":[{"latitude":10,"longitude":10},{"latitude":20,"longitude":20},{"latitude":41.161758,"longitude":-8.583933}]}}}},"parameters":[]},"GET /api/v1/lookup":{"protocol":"http","parameters":[{"name":"locations","in":"query","description":"Pipe-separated list of latitude,longitude pairs (e.g., 10,10|20,20|41.161758,-8.583933)","required":true,"schema":{"type":"string"},"example":"10,10|20,20|41.161758,-8.583933","index$":0}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"elevation":{"a":true,"fo":"double","h":"Elevation","n":"elevation","r":false,"sh":"Elevation in meters above sea level","t":"`$NUMBER`","key$":"elevation","index$":0},"latitude":{"a":true,"fo":"double","h":"Latitude","n":"latitude","r":false,"sh":"Latitude of the location","t":"`$NUMBER`","key$":"latitude","index$":1},"locations":{"a":true,"h":"Locations","n":"locations","r":true,"sh":"Array of location objects with latitude and longitude","t":"`$ARRAY`","key$":"locations","index$":2},"longitude":{"a":true,"fo":"double","h":"Longitude","n":"longitude","r":false,"sh":"Longitude of the location","t":"`$NUMBER`","key$":"longitude","index$":3},"results":{"a":true,"h":"Results","n":"results","r":false,"sh":"Array of elevation results for the requested locations","t":"`$ARRAY`","key$":"results","index$":4}},"name":"lookup","op":{"create":{"input":"data","name":"create","points":[{"a":true,"bf":["locations"],"co":{"id":"POST /api/v1/lookup","source":"openapi3","version":2},"g":{},"k":"http","m":"POST","o":"/api/v1/lookup","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"api"},{"lit":"v1"},{"lit":"lookup"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"},"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /api/v1/lookup","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"10,10|20,20|41.161758,-8.583933","k":"query","n":"location","or":"locations","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/api/v1/lookup","q":{"exist":["location"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"api"},{"lit":"v1"},{"lit":"lookup"}],"t":{"req":"`reqdata`","res":"`body.results`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"lookup","name__orig":"lookup","Name":"Lookup","name_":"lookup","name-":"lookup","NAME":"LOOKUP","index$":0}, {"active":true,"entity":"lookup","key$":"BasicLookupFlow","kind":"basic","name":"BasicLookupFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"lookup_ref01"},"m":{},"o":"create","s":[],"v":[],"index$":0},{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"lookup_ref01"}}],"index$":1}]}, 'Lookup', {"POST /api/v1/lookup":{"protocol":"http","requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","required":["locations"],"properties":{"locations":{"type":"array","description":"Array of location objects with latitude and longitude","items":{"type":"object","required":["latitude","longitude"],"properties":{"latitude":{"type":"number","format":"double","description":"Latitude in decimal degrees","minimum":-90,"maximum":90},"longitude":{"type":"number","format":"double","description":"Longitude in decimal degrees","minimum":-180,"maximum":180}},"x-ref":"#/components/schemas/Location"},"minItems":1,"key$":"locations"}},"x-ref":"#/components/schemas/ElevationRequest","index$":1},"example":{"locations":[{"latitude":10,"longitude":10},{"latitude":20,"longitude":20},{"latitude":41.161758,"longitude":-8.583933}]}}}},"parameters":[]},"GET /api/v1/lookup":{"protocol":"http","parameters":[{"name":"locations","in":"query","description":"Pipe-separated list of latitude,longitude pairs (e.g., 10,10|20,20|41.161758,-8.583933)","required":true,"schema":{"type":"string"},"example":"10,10|20,20|41.161758,-8.583933","index$":0}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -78,6 +136,12 @@ describe('LookupEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

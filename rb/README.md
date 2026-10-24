@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/open-elevation-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/open-elevation-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -29,7 +29,7 @@ gem "voxgig-sdk-open-elevation-sdk", path: "./open-elevation-sdk/rb"
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
-loading a specific record.
+loading a specific record. The client sends the API key in the `X-API-Key` header.
 
 ### 1. Create a client
 
@@ -45,10 +45,11 @@ client = OpenElevationSDK.new({
 
 ```ruby
 begin
-  # list returns an Array of Lookup records — iterate directly.
-  lookups = client.Lookup.list
+  # list returns an Array of Lookup entities, one per record; data_get reads the record.
+  lookups = client.Lookup.list({ "location" => "example" })
   lookups.each do |item|
-    puts "#{item["elevation"]}"
+    record = item.data_get
+    puts "#{record["elevation"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -70,7 +71,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  lookups = client.Lookup.list()
+  lookups = client.Lookup.list({ "location" => "example" })
 rescue => err
   warn "list failed: #{err}"
 end
@@ -138,10 +139,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = OpenElevationSDK.test
 
-# Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
-lookup = client.Lookup.list()
-puts lookup
+# list returns an Array of Lookup entities, one per mock record (raises on
+# error); data_get reads each record.
+lookups = client.Lookup.list({ "location" => "example" })
+lookups.each { |item| puts item.data_get }
 ```
 
 ### Use a custom fetch function
@@ -227,8 +228,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
-| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all), one per record. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity, and return it. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -238,9 +239,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `OpenElevationError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`OpenElevationError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -298,8 +300,9 @@ Create an instance: `lookup = client.Lookup`
 #### Example: List
 
 ```ruby
-# list returns an Array of Lookup records (raises on error).
-lookups = client.Lookup.list
+# list returns an Array of Lookup entities, one per record (raises on error).
+lookups = client.Lookup.list({ "location" => "example" })
+lookups.each { |item| puts item.data_get }
 ```
 
 #### Example: Create
@@ -473,7 +476,7 @@ stores the returned data and match criteria internally.
 
 ```ruby
 lookup = client.Lookup
-lookup.list()
+lookup.list({ "location" => "example" })
 
 # lookup.data_get now returns the lookup data from the last list
 # lookup.match_get returns the last match criteria

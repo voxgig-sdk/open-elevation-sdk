@@ -23,11 +23,7 @@ type LookupListMatch struct {
 
 // LookupCreateData is the typed request payload for Lookup.CreateTyped.
 type LookupCreateData struct {
-	Elevation *float64 `json:"elevation,omitempty"`
-	Latitude *float64 `json:"latitude,omitempty"`
 	Locations []any `json:"locations"`
-	Longitude *float64 `json:"longitude,omitempty"`
-	Results *[]any `json:"results,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

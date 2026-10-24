@@ -3,5 +3,18 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "API key required for paid plans (Basic, Professional, Enterprise). Free tier does not require authentication but is limited to 1,000 requests/month.",
+      "Array of elevation results for the requested locations",
+      "Array of location objects with latitude and longitude",
+      "Elevation in meters above sea level",
+      "Latitude of the location",
+      "Longitude of the location",
+      "Open-Elevation is a free and open-source elevation API that provides elevation data for geographical points. Users can easily access elevation information over a broad dataset, offering a reliable alternative to commercial elevation services.",
+      "Public API Server",
+      "Successful response with elevation data"
+    ]
+  }
 }

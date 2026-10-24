@@ -51,6 +51,9 @@ main: kit: entity: lookup: {
       name: "create"
       points: [
         {
+          bf: [
+            "locations"
+          ]
           co: {
             id: "POST /api/v1/lookup"
             source: "openapi3"
@@ -58,6 +61,10 @@ main: kit: entity: lookup: {
           }
           m: "POST"
           o: "/api/v1/lookup"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "api"
@@ -103,6 +110,10 @@ main: kit: entity: lookup: {
             exist: [
               "location"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

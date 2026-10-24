@@ -54,6 +54,53 @@ const utility_1 = require("../../utility");
         const ent = testsdk.Lookup();
         (0, node_assert_1.default)(null != ent);
     });
+    class FailHook extends __1.BaseFeature {
+        name = 'failhook';
+        version = '0.0.1';
+        active = true;
+        unexpected = 0;
+        init() { }
+        PreSpec() { throw new Error('lookup hook failed'); }
+        PreUnexpected() { this.unexpected++; }
+    }
+    (0, node_test_1.test)('stream-error', async () => {
+        const offline = { net: { offline: true } };
+        await node_assert_1.default.rejects(async () => {
+            for await (const _item of __1.OpenElevationSDK.test(offline).Lookup().stream('list')) { }
+        }, /offline/);
+        for await (const _item of __1.OpenElevationSDK.test(offline).Lookup()
+            .stream('list', undefined, { ctrl: { throw: false } })) { }
+        if (null != __1.config.feature?.rbac) {
+            const denied = __1.OpenElevationSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } });
+            await node_assert_1.default.rejects(async () => {
+                for await (const _item of denied.Lookup().stream('list')) { }
+            }, (err) => 'rbac_denied' === err.code);
+        }
+    });
+    (0, node_test_1.test)('stream-ctrl', async () => {
+        const explain = {};
+        const ctrl = { explain };
+        for await (const _item of __1.OpenElevationSDK.test().Lookup().stream('list', undefined, { ctrl })) { }
+        node_assert_1.default.deepStrictEqual(Object.keys(ctrl), ['explain']);
+        (0, node_assert_1.default)(explain === ctrl.explain && 0 < Object.keys(explain).length);
+    });
+    (0, node_test_1.test)('unexpected', async () => {
+        const hook = new FailHook();
+        const client = new __1.OpenElevationSDK({ feature: { test: { active: true } }, extend: [hook] });
+        await node_assert_1.default.rejects(client.Lookup().list(), /hook failed/);
+        (0, node_assert_1.default)(0 < hook.unexpected);
+        const fired = hook.unexpected;
+        node_assert_1.default.strictEqual(await client.Lookup().list(undefined, { throw: false }), undefined);
+        (0, node_assert_1.default)(fired < hook.unexpected);
+    });
+    (0, node_test_1.test)('validate', async (t) => {
+        if (null == __1.config.feature?.validate) {
+            t.skip('feature not present in this SDK: validate');
+            return;
+        }
+        const client = __1.OpenElevationSDK.test(undefined, { feature: { validate: { active: true } } });
+        await node_assert_1.default.rejects(client.Lookup().list({ "location": 1 }), (err) => 'validate_failed' === err.code);
+    });
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.OPEN_ELEVATION_TEST_LIVE;
         for (const op of ['create', 'list']) {
@@ -62,7 +109,7 @@ const utility_1 = require("../../utility");
         }
         const setup = basicSetup();
         if (setup.live) {
-            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "elevation": { "a": true, "fo": "double", "h": "Elevation", "n": "elevation", "r": false, "sh": "Elevation in meters above sea level", "t": "`$NUMBER`", "key$": "elevation", "index$": 0 }, "latitude": { "a": true, "fo": "double", "h": "Latitude", "n": "latitude", "r": false, "sh": "Latitude of the location", "t": "`$NUMBER`", "key$": "latitude", "index$": 1 }, "locations": { "a": true, "h": "Locations", "n": "locations", "r": true, "sh": "Array of location objects with latitude and longitude", "t": "`$ARRAY`", "key$": "locations", "index$": 2 }, "longitude": { "a": true, "fo": "double", "h": "Longitude", "n": "longitude", "r": false, "sh": "Longitude of the location", "t": "`$NUMBER`", "key$": "longitude", "index$": 3 }, "results": { "a": true, "h": "Results", "n": "results", "r": false, "sh": "Array of elevation results for the requested locations", "t": "`$ARRAY`", "key$": "results", "index$": 4 } }, "name": "lookup", "op": { "create": { "input": "data", "name": "create", "points": [{ "a": true, "co": { "id": "POST /api/v1/lookup", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "POST", "o": "/api/v1/lookup", "q": {}, "r": {}, "s": [{ "lit": "api" }, { "lit": "v1" }, { "lit": "lookup" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "create" }, "list": { "input": "data", "name": "list", "points": [{ "a": true, "co": { "id": "GET /api/v1/lookup", "source": "openapi3", "version": 2 }, "g": { "query": [{ "a": true, "ex": "10,10|20,20|41.161758,-8.583933", "k": "query", "n": "location", "or": "locations", "r": true, "t": "`$STRING`", "index$": 0 }] }, "k": "http", "m": "GET", "o": "/api/v1/lookup", "q": { "exist": ["location"] }, "r": {}, "s": [{ "lit": "api" }, { "lit": "v1" }, { "lit": "lookup" }], "t": { "req": "`reqdata`", "res": "`body.results`" }, "index$": 0 }], "key$": "list" } }, "relations": { "ancestors": [] }, "key$": "lookup", "name__orig": "lookup", "Name": "Lookup", "name_": "lookup", "name-": "lookup", "NAME": "LOOKUP", "index$": 0 }, { "active": true, "entity": "lookup", "key$": "BasicLookupFlow", "kind": "basic", "name": "BasicLookupFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": { "ref": "lookup_ref01" }, "m": {}, "o": "create", "s": [], "v": [], "index$": 0 }, { "a": true, "d": {}, "i": {}, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemExists", "def": { "ref": "lookup_ref01" } }], "index$": 1 }] }, 'Lookup', { "POST /api/v1/lookup": { "protocol": "http", "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "required": ["locations"], "properties": { "locations": { "type": "array", "description": "Array of location objects with latitude and longitude", "items": { "type": "object", "required": ["latitude", "longitude"], "properties": { "latitude": { "type": "number", "format": "double", "description": "Latitude in decimal degrees", "minimum": -90, "maximum": 90 }, "longitude": { "type": "number", "format": "double", "description": "Longitude in decimal degrees", "minimum": -180, "maximum": 180 } }, "x-ref": "#/components/schemas/Location" }, "minItems": 1, "key$": "locations" } }, "x-ref": "#/components/schemas/ElevationRequest", "index$": 1 }, "example": { "locations": [{ "latitude": 10, "longitude": 10 }, { "latitude": 20, "longitude": 20 }, { "latitude": 41.161758, "longitude": -8.583933 }] } } } }, "parameters": [] }, "GET /api/v1/lookup": { "protocol": "http", "parameters": [{ "name": "locations", "in": "query", "description": "Pipe-separated list of latitude,longitude pairs (e.g., 10,10|20,20|41.161758,-8.583933)", "required": true, "schema": { "type": "string" }, "example": "10,10|20,20|41.161758,-8.583933", "index$": 0 }] } });
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "elevation": { "a": true, "fo": "double", "h": "Elevation", "n": "elevation", "r": false, "sh": "Elevation in meters above sea level", "t": "`$NUMBER`", "key$": "elevation", "index$": 0 }, "latitude": { "a": true, "fo": "double", "h": "Latitude", "n": "latitude", "r": false, "sh": "Latitude of the location", "t": "`$NUMBER`", "key$": "latitude", "index$": 1 }, "locations": { "a": true, "h": "Locations", "n": "locations", "r": true, "sh": "Array of location objects with latitude and longitude", "t": "`$ARRAY`", "key$": "locations", "index$": 2 }, "longitude": { "a": true, "fo": "double", "h": "Longitude", "n": "longitude", "r": false, "sh": "Longitude of the location", "t": "`$NUMBER`", "key$": "longitude", "index$": 3 }, "results": { "a": true, "h": "Results", "n": "results", "r": false, "sh": "Array of elevation results for the requested locations", "t": "`$ARRAY`", "key$": "results", "index$": 4 } }, "name": "lookup", "op": { "create": { "input": "data", "name": "create", "points": [{ "a": true, "bf": ["locations"], "co": { "id": "POST /api/v1/lookup", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "POST", "o": "/api/v1/lookup", "q": {}, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "api" }, { "lit": "v1" }, { "lit": "lookup" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "create" }, "list": { "input": "data", "name": "list", "points": [{ "a": true, "co": { "id": "GET /api/v1/lookup", "source": "openapi3", "version": 2 }, "g": { "query": [{ "a": true, "ex": "10,10|20,20|41.161758,-8.583933", "k": "query", "n": "location", "or": "locations", "r": true, "t": "`$STRING`", "index$": 0 }] }, "k": "http", "m": "GET", "o": "/api/v1/lookup", "q": { "exist": ["location"] }, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "api" }, { "lit": "v1" }, { "lit": "lookup" }], "t": { "req": "`reqdata`", "res": "`body.results`" }, "index$": 0 }], "key$": "list" } }, "relations": { "ancestors": [] }, "key$": "lookup", "name__orig": "lookup", "Name": "Lookup", "name_": "lookup", "name-": "lookup", "NAME": "LOOKUP", "index$": 0 }, { "active": true, "entity": "lookup", "key$": "BasicLookupFlow", "kind": "basic", "name": "BasicLookupFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": { "ref": "lookup_ref01" }, "m": {}, "o": "create", "s": [], "v": [], "index$": 0 }, { "a": true, "d": {}, "i": {}, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemExists", "def": { "ref": "lookup_ref01" } }], "index$": 1 }] }, 'Lookup', { "POST /api/v1/lookup": { "protocol": "http", "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "required": ["locations"], "properties": { "locations": { "type": "array", "description": "Array of location objects with latitude and longitude", "items": { "type": "object", "required": ["latitude", "longitude"], "properties": { "latitude": { "type": "number", "format": "double", "description": "Latitude in decimal degrees", "minimum": -90, "maximum": 90 }, "longitude": { "type": "number", "format": "double", "description": "Longitude in decimal degrees", "minimum": -180, "maximum": 180 } }, "x-ref": "#/components/schemas/Location" }, "minItems": 1, "key$": "locations" } }, "x-ref": "#/components/schemas/ElevationRequest", "index$": 1 }, "example": { "locations": [{ "latitude": 10, "longitude": 10 }, { "latitude": 20, "longitude": 20 }, { "latitude": 41.161758, "longitude": -8.583933 }] } } } }, "parameters": [] }, "GET /api/v1/lookup": { "protocol": "http", "parameters": [{ "name": "locations", "in": "query", "description": "Pipe-separated list of latitude,longitude pairs (e.g., 10,10|20,20|41.161758,-8.583933)", "required": true, "schema": { "type": "string" }, "example": "10,10|20,20|41.161758,-8.583933", "index$": 0 }] } }, { strict: LIVE_STRICT, t });
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -78,6 +125,11 @@ const utility_1 = require("../../utility");
         const lookup_ref01_list = (await lookup_ref01_ent.list(lookup_ref01_match)).map((e) => e.data());
     });
 });
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true;
 function basicSetup(extra) {
     // TODO: fix test def options
     const options = {}; // null
